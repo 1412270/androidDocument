@@ -1,0 +1,729 @@
+ {
+   "FIELD1": "155",
+   "FIELD2": "B20 B?ch ??ng",
+   "FIELD3": "B20 B?ch ??ng, P.2, Tan Binh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "497547372.93000"
+ },
+ {
+   "FIELD1": "157",
+   "FIELD2": "Vista Verde",
+   "FIELD3": "T?ng 1 Trung Tam TM Faifo Lane 2 ???ng Phan V?n ?ang, ph??ng Th?nh M? L?i, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "102044495.60000"
+ },
+ {
+   "FIELD1": "158",
+   "FIELD2": "902 T? Quang B?u",
+   "FIELD3": "900D-902 T? Quang B?u, P.5, Q.8",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "622792588.12000"
+ },
+ {
+   "FIELD1": "160",
+   "FIELD2": "138 V?nh Vi?n",
+   "FIELD3": "138 V?nh Vi?n, P.9, Q.10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "676754849.43000"
+ },
+ {
+   "FIELD1": "161",
+   "FIELD2": "11 Xuan Th?y",
+   "FIELD3": "11 Xuan Th?y, P.Th?o ?i?n, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "477709564.46000"
+ },
+ {
+   "FIELD1": "162",
+   "FIELD2": "GreenValley",
+   "FIELD3": "B0.01 Greenvalley, Ton D?t Tien, P.Tan Phu, Q.7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "424216698.51000"
+ },
+ {
+   "FIELD1": "164",
+   "FIELD2": "377 Tan H??ng",
+   "FIELD3": "377 Tan H??ng, P.Tan Quy, Tan Phu",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "232437133.53000"
+ },
+ {
+   "FIELD1": "165",
+   "FIELD2": "48 Qu?c H??ng",
+   "FIELD3": "48 Qu?c H??ng, P.Th?o ?i?n, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "737156177.26000"
+ },
+ {
+   "FIELD1": "166",
+   "FIELD2": "2 Hoang Hoa Tham-VT",
+   "FIELD3": "2 Hoang Hoa Tham, P.2, V?ng Tau",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "661781076.62000"
+ },
+ {
+   "FIELD1": "167",
+   "FIELD2": "Phoenix-VT",
+   "FIELD3": "B106, Block B, CC Phoenix ???ng Chi Linh, P.Nguy?n An Ninh, V?ng Tau",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "222018627.74000"
+ },
+ {
+   "FIELD1": "168",
+   "FIELD2": "545 T? Quang B?u",
+   "FIELD3": "545 T? Quang B?u, P.4, Q.8",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "145584582.82000"
+ },
+ {
+   "FIELD1": "169",
+   "FIELD2": "Garden Gate",
+   "FIELD3": "8 Hoang Minh Giam, P.9, Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "133696423.23000"
+ },
+ {
+   "FIELD1": "170",
+   "FIELD2": "490 ??i l? Binh D??ng-BD",
+   "FIELD3": "490 ??i l? Binh D??ng, P.Hi?p Thanh, Binh D??ng",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "685586286.03000"
+ },
+ {
+   "FIELD1": "171",
+   "FIELD2": "CC Phu Hoa-BD",
+   "FIELD3": "102 T?ng 1+2, CC Phu Hoa 1, 117 ???ng D1, P.Phu Hoa, Tp.Th? D?u M?t, Binh D??ng",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "773488532.56000"
+ },
+ {
+   "FIELD1": "173",
+   "FIELD2": "234 ?i?n Bien Ph?",
+   "FIELD3": "234 ?i?n Bien Ph?, P.17, Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "696513035.74000"
+ },
+ {
+   "FIELD1": "174",
+   "FIELD2": "499 Nguy?n Oanh",
+   "FIELD3": "499 Nguy?n Oanh, P.17, Q.Go V?p",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "648370462.92000"
+ },
+ {
+   "FIELD1": "175",
+   "FIELD2": "CC Linh Tay",
+   "FIELD3": "TM1.11/HDMB-TM CC Linh Tay (5 ???ng D1, KDC Tan H?i Minh, P.Linh Tay, Th? ??c)",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "358915188.73000"
+ },
+ {
+   "FIELD1": "176",
+   "FIELD2": "233 Phan Xich Long",
+   "FIELD3": "233 Phan Xich Long, P.2, Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "121620149.17000"
+ },
+ {
+   "FIELD1": "177",
+   "FIELD2": "816 Tr?n Phu-VT",
+   "FIELD3": "816 Tr?n Phu, P.Th?ng Nhi, TP.V?ng Tau",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "186897516.29000"
+ },
+ {
+   "FIELD1": "179",
+   "FIELD2": "311 L??ng ??nh C?a",
+   "FIELD3": "311-L33 ???ng H, L??ng ??nh C?a, P.An Phu, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201709",
+   "FIELD7": "50675446.12000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "5630763476.50000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "512098644.90000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "848856752.86000"
+ },
+ {
+   "FIELD1": "5",
+   "FIELD2": "Zen Plaza",
+   "FIELD3": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "301830254.35000"
+ },
+ {
+   "FIELD1": "6",
+   "FIELD2": "Ly Chinh Th?ng",
+   "FIELD3": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1013445836.19000"
+ },
+ {
+   "FIELD1": "7",
+   "FIELD2": "Ly T? Tr?ng",
+   "FIELD3": "126 Ly T? Tr?ng, P B?n Thanh, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "764772796.48000"
+ },
+ {
+   "FIELD1": "8",
+   "FIELD2": "134 Pasteur",
+   "FIELD3": "134 Pasteur, P B?n Nghe, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "735189490.23000"
+ },
+ {
+   "FIELD1": "9",
+   "FIELD2": "Petro Land Tower",
+   "FIELD3": "12 Tan Trao , P Tan Phu , Q 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1039354270.86000"
+ },
+ {
+   "FIELD1": "10",
+   "FIELD2": "58 Pasteur",
+   "FIELD3": "58 Pasteur, P B?n Nghe, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1262767341.63000"
+ },
+ {
+   "FIELD1": "12",
+   "FIELD2": "189 Le Thanh Ton",
+   "FIELD3": "189 Le Thanh Ton , P B?n Thanh , Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "498744221.20000"
+ },
+ {
+   "FIELD1": "15",
+   "FIELD2": "Center Point",
+   "FIELD3": "106 Nguy?n V?n Tr?i, P 8, Q Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1042488898.73000"
+ },
+ {
+   "FIELD1": "16",
+   "FIELD2": "Nguy?n Kh?c Nhu",
+   "FIELD3": "210 B/1 Co B?c, P Co Giang , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1991820597.56000"
+ },
+ {
+   "FIELD1": "19",
+   "FIELD2": "97-99 Nguy?n H?u C?u",
+   "FIELD3": "97-99 Nguy?n H?u C?u, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "921450222.82000"
+ },
+ {
+   "FIELD1": "20",
+   "FIELD2": "234 ?? Tham",
+   "FIELD3": "234 ?? Tham, P. Ph?m Ng?  Lao, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1065532920.24000"
+ },
+ {
+   "FIELD1": "21",
+   "FIELD2": "77 Tr?n Binh Tr?ng",
+   "FIELD3": "77 Tr?n Binh Tr?ng , P 1, Q 5",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "644172904.86000"
+ },
+ {
+   "FIELD1": "23",
+   "FIELD2": "199C CMT8",
+   "FIELD3": "199C CMT8, P4, Q 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "863579827.98000"
+ },
+ {
+   "FIELD1": "24",
+   "FIELD2": "297D Bui H?u Ngh?a",
+   "FIELD3": "297D Bui H?u Ngh?a, P1, Q Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "843582366.28000"
+ },
+ {
+   "FIELD1": "25",
+   "FIELD2": "454 Le V?n S?",
+   "FIELD3": "454 Le V?n S?, P14, Q3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "897876936.76000"
+ },
+ {
+   "FIELD1": "28",
+   "FIELD2": "49 Bui Th? Xuan",
+   "FIELD3": "49 Bui Th? Xuan, P B?n Thanh , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1039598586.90000"
+ },
+ {
+   "FIELD1": "29",
+   "FIELD2": "LANG ??I H?C TH? ??C",
+   "FIELD3": "T?ng Tr?t, Kh?i A3-1 , Khu B, Ky Tuc Xa Lang ??i H?c Th? ??c, T?nh Binh D??ng",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1166456032.16000"
+ },
+ {
+   "FIELD1": "30",
+   "FIELD2": "60B Vo V?n T?n",
+   "FIELD3": "60B Vo V?n T?n, P 6, Q 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1365689705.89000"
+ },
+ {
+   "FIELD1": "32",
+   "FIELD2": "133 Tr?n ?inh Xu",
+   "FIELD3": "133 Tr?n ?inh Xu, P Nguy?n C? Trinh , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "811057304.38000"
+ },
+ {
+   "FIELD1": "33",
+   "FIELD2": "Cao ?c T?n ?a",
+   "FIELD3": "T?ng tr?t, cao ?c c?n h? th??ng m?i T?n ?a,  86 T?n ?a, P.11",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "848001193.24000"
+ },
+ {
+   "FIELD1": "34",
+   "FIELD2": "Garden Plaza 2",
+   "FIELD3": "23 Ly Long T??ng, Khu ph? Garden Plaza 2, P.Tan Phong, Q.7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "612214062.00000"
+ },
+ {
+   "FIELD1": "36",
+   "FIELD2": "129 Hu?nh V?n Banh",
+   "FIELD3": "129 Hu?nh V?n Banh , Q Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1350825034.96000"
+ },
+ {
+   "FIELD1": "37",
+   "FIELD2": "21B Nguy?n ?inh Chi?u",
+   "FIELD3": "21B Nguy?n ?inh Chi?u, P.?a Kao, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "997429761.08000"
+ },
+ {
+   "FIELD1": "38",
+   "FIELD2": "7A Thanh Thai",
+   "FIELD3": "7A/162 Thanh Thai, P 14, Q10",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "773707650.83000"
+ },
+ {
+   "FIELD1": "40",
+   "FIELD2": "16 H? Hu?n Nghi?p",
+   "FIELD3": "16 H? Hu?n Nghi?p, P.B?n Nghe, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "912217139.10000"
+ },
+ {
+   "FIELD1": "42",
+   "FIELD2": "23 Le Quy ?on",
+   "FIELD3": "23 Le Quy ?on, P.6, Q3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1040966385.87000"
+ },
+ {
+   "FIELD1": "43",
+   "FIELD2": "106 Nguy?n Cong Tr?",
+   "FIELD3": "106 Nguy?n Cong Tr?, P.Nguy?n Thai Binh,Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "758214092.49000"
+ },
+ {
+   "FIELD1": "44",
+   "FIELD2": "362 Vo V?n Ngan",
+   "FIELD3": "362 Vo V?n Ngan, P.Binh Th?, Q.Th? ??c",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "922886231.15000"
+ },
+ {
+   "FIELD1": "46",
+   "FIELD2": "299 Nguy?n Tri Ph??ng",
+   "FIELD3": "299 Nguy?n Tri Ph??ng, P.5, Q.10",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "840644882.48000"
+ },
+ {
+   "FIELD1": "47",
+   "FIELD2": "202E S? V?n H?nh",
+   "FIELD3": "202E S? V?n H?nh, P.9, Q.5",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "862900644.15000"
+ },
+ {
+   "FIELD1": "48",
+   "FIELD2": "206 Xo Vi?t Ngh? T?nh",
+   "FIELD3": "206 Xo Vi?t Ngh? T?nh, P.21, Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "693902734.05000"
+ },
+ {
+   "FIELD1": "49",
+   "FIELD2": "400 Le V?n S?",
+   "FIELD3": "400 Le V?n S?, P.2, Tan Binh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "553465247.79000"
+ },
+ {
+   "FIELD1": "54",
+   "FIELD2": "37C Thu?n Ki?u",
+   "FIELD3": "37C Thu?n Ki?u, P.12, Q.5",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "694282625.16000"
+ },
+ {
+   "FIELD1": "55",
+   "FIELD2": "106 Tr?n Nhan Ton",
+   "FIELD3": "106 Tr?n Nhan Ton, P.2, Q.10",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "523627674.11000"
+ },
+ {
+   "FIELD1": "56",
+   "FIELD2": "21 Ter Tr?n Kh?c Chan",
+   "FIELD3": "21 Ter Tr?n Kh?c Chan, P.Tan ??nh, Q.1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "441564051.67000"
+ },
+ {
+   "FIELD1": "57",
+   "FIELD2": "78-80 Ly Chinh Th?ng",
+   "FIELD3": "78-80 Ly Chinh Th?ng, P.8, Q.3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "792289573.92000"
+ },
+ {
+   "FIELD1": "59",
+   "FIELD2": "16 Qu?c H??ng",
+   "FIELD3": "16 Qu?c H??ng, P.Th?o ?i?n, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1754902850.92000"
+ },
+ {
+   "FIELD1": "60",
+   "FIELD2": "40 Qu?c H??ng",
+   "FIELD3": "40 Qu?c H??ng, P.Th?o ?i?n, Q.2",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "686762661.04000"
+ },
+ {
+   "FIELD1": "62",
+   "FIELD2": "39 D2",
+   "FIELD3": "39 D2 P.25 Q.Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "936423934.00000"
+ },
+ {
+   "FIELD1": "63",
+   "FIELD2": "125 C?ng Qu?nh",
+   "FIELD3": "125 C?ng Qu?nh, P.Nguy?n C? Trinh, Q.1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1007832906.78000"
+ },
+ {
+   "FIELD1": "64",
+   "FIELD2": "14B9 Ngo T?t T?",
+   "FIELD3": "14B9 Ngo T?t T?, P.19, Q.Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "736014373.34000"
+ },
+ {
+   "FIELD1": "65",
+   "FIELD2": "111 Ngo Quy?n",
+   "FIELD3": "111 Ngo Quy?n, P.12, Q.5",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "784578503.43000"
+ },
+ {
+   "FIELD1": "66",
+   "FIELD2": "54-56 Thai Th? Nh?n",
+   "FIELD3": "54-56 Thai Th? Nh?n, P.10, Q.Tan Binh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "551408459.28000"
+ },
+ {
+   "FIELD1": "67",
+   "FIELD2": "11C Nguy?n Th? Minh Khai",
+   "FIELD3": "11C Nguy?n Th? Minh Khai, P.B?n Nghe, Q.1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1015973823.73000"
+ },
+ {
+   "FIELD1": "69",
+   "FIELD2": "12 M?c ??nh Chi",
+   "FIELD3": "12 M?c ??nh Chi, P.?akao, Q.1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1290500739.24000"
+ },
+ {
+   "FIELD1": "70",
+   "FIELD2": "Hikari",
+   "FIELD3": "Lo A11,A12,A16 ???ng Ly Thai T?, P.Hoa Phu, Tp.Th? D?u M?t, Binh D??ng",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "928947018.56000"
+ },
+ {
+   "FIELD1": "72",
+   "FIELD2": "9 Thanh ?a",
+   "FIELD3": "9 Thanh ?a, P.27, Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "872058834.82000"
+ },
+ {
+   "FIELD1": "73",
+   "FIELD2": "312 ?i?n Bien Ph?",
+   "FIELD3": "312 ?i?n Bien Ph?, P.17, Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "873429698.37000"
+ },
+ {
+   "FIELD1": "74",
+   "FIELD2": "125 ?i?n Bien Ph?",
+   "FIELD3": "125 ?i?n Bien Ph?, P.?aKao, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "677325951.75000"
+ },
+ {
+   "FIELD1": "76",
+   "FIELD2": "Sora Gardens",
+   "FIELD3": "Lo C18, ??i l? Hung V??ng, Ph??ng Hoa Phu, Thanh Ph? Th? D?u M?t, Binh D??ng",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1646591565.99000"
+ },
+ {
+   "FIELD1": "77",
+   "FIELD2": "735 Nguy?n Trai",
+   "FIELD3": "733-735 Nguy?n Trai, P.11, Q.5",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "836697376.80000"
+ },
+ {
+   "FIELD1": "78",
+   "FIELD2": "B18 Tr??ng S?n",
+   "FIELD3": "BB18 Tr??ng S?n, P.15, Q.10",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "801833944.43000"
+ },
+ {
+   "FIELD1": "79",
+   "FIELD2": "90 Binh Qu?i",
+   "FIELD3": "88-90 Binh Qu?i, P.27, Q.Binh Th?nh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "789824170.59000"
+ },
+ {
+   "FIELD1": "80",
+   "FIELD2": "811 T? Quang B?u",
+   "FIELD3": "809B-811 T? Quang B?u, P.5, Q.8",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "1402301678.81000"
+ },
+ {
+   "FIELD1": "84",
+   "FIELD2": "973 H?u Giang",
+   "FIELD3": "973 H?u Giang, P.11, Q.6",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "601505483.84000"
+ },
+ {
+   "FIELD1": "85",
+   "FIELD2": "158 Hai Ba Tr?ng",
+   "FIELD3": "158 Hai Ba Tr?ng, P.?aKao, Q.1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "860367228.24000"
+ },
+ {
+   "FIELD1": "86",
+   "FIELD2": "256 Phan Xich Long",
+   "FIELD3": "256 Phan Xich Long, P.7, Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "455363834.20000"
+ },
+ {
+   "FIELD1": "87",
+   "FIELD2": "11 Tan Hoa ?ong",
+   "FIELD3": "11 Tan Hoa ?ong, P.13, Q.6",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201710",
+   "FIELD7": "641993622.36000"
+ },
