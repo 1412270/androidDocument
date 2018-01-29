@@ -1,1 +1,505 @@
-cxcv
+[
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201307",
+   "FIELD7": "917208830.07000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201307",
+   "FIELD7": "25041082.99000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201308",
+   "FIELD7": "3802214747.24000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201308",
+   "FIELD7": "112480205.92000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201308",
+   "FIELD7": "197644754.58000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201308",
+   "FIELD7": "504775926.33000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "4089405943.60000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "127162342.20000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "235089321.79000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "619095265.11000"
+ },
+ {
+   "FIELD1": "5",
+   "FIELD2": "Zen Plaza",
+   "FIELD3": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "100504143.42000"
+ },
+ {
+   "FIELD1": "6",
+   "FIELD2": "Ly Chinh Th?ng",
+   "FIELD3": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201309",
+   "FIELD7": "94253058.03000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "4334672757.92000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "120528031.26000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "301612400.49000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "695944590.36000"
+ },
+ {
+   "FIELD1": "5",
+   "FIELD2": "Zen Plaza",
+   "FIELD3": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "202994745.91000"
+ },
+ {
+   "FIELD1": "6",
+   "FIELD2": "Ly Chinh Th?ng",
+   "FIELD3": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "381148513.51000"
+ },
+ {
+   "FIELD1": "7",
+   "FIELD2": "Ly T? Tr?ng",
+   "FIELD3": "126 Ly T? Tr?ng, P B?n Thanh, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201310",
+   "FIELD7": "120945781.92000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "4403208160.56000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "136877793.23000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "327634404.91000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "796395845.90000"
+ },
+ {
+   "FIELD1": "5",
+   "FIELD2": "Zen Plaza",
+   "FIELD3": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "241795698.58000"
+ },
+ {
+   "FIELD1": "6",
+   "FIELD2": "Ly Chinh Th?ng",
+   "FIELD3": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "397579972.27000"
+ },
+ {
+   "FIELD1": "7",
+   "FIELD2": "Ly T? Tr?ng",
+   "FIELD3": "126 Ly T? Tr?ng, P B?n Thanh, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "444564967.91000"
+ },
+ {
+   "FIELD1": "8",
+   "FIELD2": "134 Pasteur",
+   "FIELD3": "134 Pasteur, P B?n Nghe, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "232262192.10000"
+ },
+ {
+   "FIELD1": "9",
+   "FIELD2": "Petro Land Tower",
+   "FIELD3": "12 Tan Trao , P Tan Phu , Q 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "194199158.83000"
+ },
+ {
+   "FIELD1": "10",
+   "FIELD2": "58 Pasteur",
+   "FIELD3": "58 Pasteur, P B?n Nghe, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "86520472.37000"
+ },
+ {
+   "FIELD1": "11",
+   "FIELD2": "M? Phat",
+   "FIELD3": "137 Nguy?n ??c C?nh-SE05 KP M? Phat, P Tan Phong, Q7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "159964146.33000"
+ },
+ {
+   "FIELD1": "12",
+   "FIELD2": "189 Le Thanh Ton",
+   "FIELD3": "189 Le Thanh Ton , P B?n Thanh , Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "61653495.06000"
+ },
+ {
+   "FIELD1": "13",
+   "FIELD2": "137-139 Co B?c",
+   "FIELD3": "137-139 Co B?c , P Co Giang , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201311",
+   "FIELD7": "98731132.05000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "4393906292.89000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "183092886.52000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "299536984.43000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "795798619.30000"
+ },
+ {
+   "FIELD1": "5",
+   "FIELD2": "Zen Plaza",
+   "FIELD3": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "235493556.55000"
+ },
+ {
+   "FIELD1": "6",
+   "FIELD2": "Ly Chinh Th?ng",
+   "FIELD3": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "400918468.73000"
+ },
+ {
+   "FIELD1": "7",
+   "FIELD2": "Ly T? Tr?ng",
+   "FIELD3": "126 Ly T? Tr?ng, P B?n Thanh, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "533922301.65000"
+ },
+ {
+   "FIELD1": "8",
+   "FIELD2": "134 Pasteur",
+   "FIELD3": "134 Pasteur, P B?n Nghe, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "314896786.86000"
+ },
+ {
+   "FIELD1": "9",
+   "FIELD2": "Petro Land Tower",
+   "FIELD3": "12 Tan Trao , P Tan Phu , Q 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "348934655.98000"
+ },
+ {
+   "FIELD1": "10",
+   "FIELD2": "58 Pasteur",
+   "FIELD3": "58 Pasteur, P B?n Nghe, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "224133786.17000"
+ },
+ {
+   "FIELD1": "11",
+   "FIELD2": "M? Phat",
+   "FIELD3": "137 Nguy?n ??c C?nh-SE05 KP M? Phat, P Tan Phong, Q7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "380493110.88000"
+ },
+ {
+   "FIELD1": "12",
+   "FIELD2": "189 Le Thanh Ton",
+   "FIELD3": "189 Le Thanh Ton , P B?n Thanh , Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "311703166.80000"
+ },
+ {
+   "FIELD1": "13",
+   "FIELD2": "137-139 Co B?c",
+   "FIELD3": "137-139 Co B?c , P Co Giang , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "467361209.37000"
+ },
+ {
+   "FIELD1": "14",
+   "FIELD2": "242-244 Nguy?n ?inh Chi?u",
+   "FIELD3": "242-244 Nguy?n ?inh Chi?u , P 6, Q3",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "299269646.32000"
+ },
+ {
+   "FIELD1": "15",
+   "FIELD2": "Center Point",
+   "FIELD3": "106 Nguy?n V?n Tr?i, P 8, Q Phu Nhu?n",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "222659336.46000"
+ },
+ {
+   "FIELD1": "16",
+   "FIELD2": "Nguy?n Kh?c Nhu",
+   "FIELD3": "210 B/1 Co B?c, P Co Giang , Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "453220843.10000"
+ },
+ {
+   "FIELD1": "17",
+   "FIELD2": "66 Pho ??c Chinh",
+   "FIELD3": "66C Pho ??c Chinh, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "162530132.13000"
+ },
+ {
+   "FIELD1": "18",
+   "FIELD2": "598-600 CMT8",
+   "FIELD3": "598-600 CMT8, P 11, Q3",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "246248263.65000"
+ },
+ {
+   "FIELD1": "19",
+   "FIELD2": "97-99 Nguy?n H?u C?u",
+   "FIELD3": "97-99 Nguy?n H?u C?u, Q 1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "183912805.92000"
+ },
+ {
+   "FIELD1": "20",
+   "FIELD2": "234 ?? Tham",
+   "FIELD3": "234 ?? Tham, P. Ph?m Ng?  Lao, Q1",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201312",
+   "FIELD7": "162556518.95000"
+ },
+ {
+   "FIELD1": "1",
+   "FIELD2": "Saigon Sky Garden",
+   "FIELD3": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "FIELD4": "A03",
+   "FIELD5": "Z01",
+   "FIELD6": "201401",
+   "FIELD7": "4301610196.65000"
+ },
+ {
+   "FIELD1": "2",
+   "FIELD2": "Cong Vien Le Thi Rieng",
+   "FIELD3": "875 Cach Mang Thang 8 , Ward 15 ,District 10",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201401",
+   "FIELD7": "174573728.64000"
+ },
+ {
+   "FIELD1": "3",
+   "FIELD2": "Phan Van Tri",
+   "FIELD3": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "FIELD4": "A02",
+   "FIELD5": "Z01",
+   "FIELD6": "201401",
+   "FIELD7": "236273251.86000"
+ },
+ {
+   "FIELD1": "4",
+   "FIELD2": "The Riverside",
+   "FIELD3": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "FIELD4": "A01",
+   "FIELD5": "Z01",
+   "FIELD6": "201401",
+   "FIELD7": "814907360.33000"
+ },
