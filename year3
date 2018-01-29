@@ -1,0 +1,729 @@
+{
+   "store_id": 77,
+   "store_name": "735 Nguy?n Trai",
+   "address": "733-735 Nguy?n Trai, P.11, Q.5",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 3066115602.03
+ },
+ {
+   "store_id": 78,
+   "store_name": "B18 Tr??ng S?n",
+   "address": "BB18 Tr??ng S?n, P.15, Q.10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 3008696798.36
+ },
+ {
+   "store_id": 79,
+   "store_name": "90 Binh Qu?i",
+   "address": "88-90 Binh Qu?i, P.27, Q.Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 2010589614.37
+ },
+ {
+   "store_id": 80,
+   "store_name": "811 T? Quang B?u",
+   "address": "809B-811 T? Quang B?u, P.5, Q.8",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 2971907537.78
+ },
+ {
+   "store_id": 81,
+   "store_name": "Blue Square",
+   "address": "91 Ph?m V?n Hai, P.3, Q.Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 2641292999.05
+ },
+ {
+   "store_id": 82,
+   "store_name": "418 Nguy?n Duy Trinh",
+   "address": "418 Nguy?n Duy Trinh, P.Binh Tr?ng ?ong, Q.2",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1418531484.98
+ },
+ {
+   "store_id": 83,
+   "store_name": "100 ??ng ?en",
+   "address": "100 ? 102 ??ng ?en, P.14, Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1197040438.16
+ },
+ {
+   "store_id": 84,
+   "store_name": "973 H?u Giang",
+   "address": "973 H?u Giang, P.11, Q.6",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1196881077.23
+ },
+ {
+   "store_id": 85,
+   "store_name": "158 Hai Ba Tr?ng",
+   "address": "158 Hai Ba Tr?ng, P.?aKao, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1637799555.8
+ },
+ {
+   "store_id": 86,
+   "store_name": "256 Phan Xich Long",
+   "address": "256 Phan Xich Long, P.7, Phu Nhu?n",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1063842752.66
+ },
+ {
+   "store_id": 87,
+   "store_name": "11 Tan Hoa ?ong",
+   "address": "11 Tan Hoa ?ong, P.13, Q.6",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1462961984.61
+ },
+ {
+   "store_id": 88,
+   "store_name": "160 Bui Th? Xuan",
+   "address": "160 Bui Th? Xuan, P.Ph?m Ng? Lao, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 439641593.73
+ },
+ {
+   "store_id": 89,
+   "store_name": "570 Au C?",
+   "address": "570-570A Au C?, P.10, Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 919926205.76
+ },
+ {
+   "store_id": 90,
+   "store_name": "240 Nguy?n V?n Luong",
+   "address": "240 Nguy?n V?n Luong, P.11, Q.6",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 1401306290.02
+ },
+ {
+   "store_id": 92,
+   "store_name": "487 H?u Giang",
+   "address": "487 H?u Giang, P.11, Q.6",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 569316286.55
+ },
+ {
+   "store_id": 93,
+   "store_name": "160 Tan Hoa ?ong",
+   "address": "160 Tan Hoa ?ong, P.14, Q.6",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 576454045.86
+ },
+ {
+   "store_id": 94,
+   "store_name": "138D Nguy?n ?inh Chi?u",
+   "address": "138D Nguy?n ?inh Chi?u, P.6, Q.3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 706178011.64
+ },
+ {
+   "store_id": 96,
+   "store_name": "541 Hu?nh T?n Phat",
+   "address": "541 Hu?nh T?n Phat, P. Tan Thu?n ?ong, Q.7",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 656803633.06
+ },
+ {
+   "store_id": 97,
+   "store_name": "2H Tr?n Nhan Ton",
+   "address": "2H Tr?n Nhan Ton, P.2, Q.10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 373424659.1
+ },
+ {
+   "store_id": 101,
+   "store_name": "Petrolimex 160 Xo Vi?t Ngh? T?nh",
+   "address": "160 Xo Vi?t Ngh? T?nh, P.21, Q.Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 211984850.25
+ },
+ {
+   "store_id": 102,
+   "store_name": "Petrolimex 410 Nguy?n ?inh Chi?u",
+   "address": "410-414 Nguy?n ?inh Chi?u, P. 4, Q.3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2015,
+   "total_amount": 150222901.24
+ },
+ {
+   "store_id": 1,
+   "store_name": "Saigon Sky Garden",
+   "address": "20 Le Thanh Ton Ward Ben Nghe, District 1",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 63207511821.64
+ },
+ {
+   "store_id": 3,
+   "store_name": "Phan Van Tri",
+   "address": "188E Phan Van Tri, Ward 12, District BinhThanh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4182865285.74
+ },
+ {
+   "store_id": 4,
+   "store_name": "The Riverside",
+   "address": "Nguyen Luong Bang , Tan Phu Ward, Phu My Hung District 7",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 9569457691.59
+ },
+ {
+   "store_id": 5,
+   "store_name": "Zen Plaza",
+   "address": "T?ng B1, 54-56 Nguy?n Trai , Qu?n 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 2723886348.06
+ },
+ {
+   "store_id": 6,
+   "store_name": "Ly Chinh Th?ng",
+   "address": "138 Ly Chinh Th?ng, P 9 , Qu?n 3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 7846642883.06
+ },
+ {
+   "store_id": 7,
+   "store_name": "Ly T? Tr?ng",
+   "address": "126 Ly T? Tr?ng, P B?n Thanh, Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 7337158098.82
+ },
+ {
+   "store_id": 8,
+   "store_name": "134 Pasteur",
+   "address": "134 Pasteur, P B?n Nghe, Q 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4993104155.09
+ },
+ {
+   "store_id": 9,
+   "store_name": "Petro Land Tower",
+   "address": "12 Tan Trao , P Tan Phu , Q 7",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 7374571906.66
+ },
+ {
+   "store_id": 10,
+   "store_name": "58 Pasteur",
+   "address": "58 Pasteur, P B?n Nghe, Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6710049038.21
+ },
+ {
+   "store_id": 12,
+   "store_name": "189 Le Thanh Ton",
+   "address": "189 Le Thanh Ton , P B?n Thanh , Q 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5720015367.05
+ },
+ {
+   "store_id": 13,
+   "store_name": "137-139 Co B?c",
+   "address": "137-139 Co B?c , P Co Giang , Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4765556735.62
+ },
+ {
+   "store_id": 14,
+   "store_name": "242-244 Nguy?n ?inh Chi?u",
+   "address": "242-244 Nguy?n ?inh Chi?u , P 6, Q3",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6953133835.16
+ },
+ {
+   "store_id": 15,
+   "store_name": "Center Point",
+   "address": "106 Nguy?n V?n Tr?i, P 8, Q Phu Nhu?n",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6317642581.32
+ },
+ {
+   "store_id": 16,
+   "store_name": "Nguy?n Kh?c Nhu",
+   "address": "210 B/1 Co B?c, P Co Giang , Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 10996447550.96
+ },
+ {
+   "store_id": 18,
+   "store_name": "598-600 CMT8",
+   "address": "598-600 CMT8, P 11, Q3",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 446459979.41
+ },
+ {
+   "store_id": 19,
+   "store_name": "97-99 Nguy?n H?u C?u",
+   "address": "97-99 Nguy?n H?u C?u, Q 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 7646201748.85
+ },
+ {
+   "store_id": 20,
+   "store_name": "234 ?? Tham",
+   "address": "234 ?? Tham, P. Ph?m Ng?  Lao, Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 9114922448.61
+ },
+ {
+   "store_id": 21,
+   "store_name": "77 Tr?n Binh Tr?ng",
+   "address": "77 Tr?n Binh Tr?ng , P 1, Q 5",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4779364602.09
+ },
+ {
+   "store_id": 22,
+   "store_name": "162 D2",
+   "address": "162 ???ng D2, P25  , Q Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 8767587096.21
+ },
+ {
+   "store_id": 23,
+   "store_name": "199C CMT8",
+   "address": "199C CMT8, P4, Q 3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5819205328.32
+ },
+ {
+   "store_id": 24,
+   "store_name": "297D Bui H?u Ngh?a",
+   "address": "297D Bui H?u Ngh?a, P1, Q Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6561625592.42
+ },
+ {
+   "store_id": 25,
+   "store_name": "454 Le V?n S?",
+   "address": "454 Le V?n S?, P14, Q3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6741510065.38
+ },
+ {
+   "store_id": 28,
+   "store_name": "49 Bui Th? Xuan",
+   "address": "49 Bui Th? Xuan, P B?n Thanh , Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6821731601.74
+ },
+ {
+   "store_id": 29,
+   "store_name": "LANG ??I H?C TH? ??C",
+   "address": "T?ng Tr?t, Kh?i A3-1 , Khu B, Ky Tuc Xa Lang ??i H?c Th? ??c, T?nh Binh D??ng",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 8678043718.99
+ },
+ {
+   "store_id": 30,
+   "store_name": "60B Vo V?n T?n",
+   "address": "60B Vo V?n T?n, P 6, Q 3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 9791128160.01
+ },
+ {
+   "store_id": 32,
+   "store_name": "133 Tr?n ?inh Xu",
+   "address": "133 Tr?n ?inh Xu, P Nguy?n C? Trinh , Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6151219051.76
+ },
+ {
+   "store_id": 33,
+   "store_name": "Cao ?c T?n ?a",
+   "address": "T?ng tr?t, cao ?c c?n h? th??ng m?i T?n ?a,  86 T?n ?a, P.11",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6008392960.05
+ },
+ {
+   "store_id": 34,
+   "store_name": "Garden Plaza 2",
+   "address": "23 Ly Long T??ng, Khu ph? Garden Plaza 2, P.Tan Phong, Q.7",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5513152327.14
+ },
+ {
+   "store_id": 35,
+   "store_name": "58 Ngo ??c K?",
+   "address": "58 Ngo ??c K?, P B?n Nghe ,Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4603882017.01
+ },
+ {
+   "store_id": 36,
+   "store_name": "129 Hu?nh V?n Banh",
+   "address": "129 Hu?nh V?n Banh , Q Phu Nhu?n",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 9051682431.18
+ },
+ {
+   "store_id": 37,
+   "store_name": "21B Nguy?n ?inh Chi?u",
+   "address": "21B Nguy?n ?inh Chi?u, P.?a Kao, Q 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6752131287.7
+ },
+ {
+   "store_id": 38,
+   "store_name": "7A Thanh Thai",
+   "address": "7A/162 Thanh Thai, P 14, Q10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6062844724.46
+ },
+ {
+   "store_id": 40,
+   "store_name": "16 H? Hu?n Nghi?p",
+   "address": "16 H? Hu?n Nghi?p, P.B?n Nghe, Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4575973699.72
+ },
+ {
+   "store_id": 42,
+   "store_name": "23 Le Quy ?on",
+   "address": "23 Le Quy ?on, P.6, Q3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5753486828.66
+ },
+ {
+   "store_id": 43,
+   "store_name": "106 Nguy?n Cong Tr?",
+   "address": "106 Nguy?n Cong Tr?, P.Nguy?n Thai Binh,Q1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5501948733.37
+ },
+ {
+   "store_id": 44,
+   "store_name": "362 Vo V?n Ngan",
+   "address": "362 Vo V?n Ngan, P.Binh Th?, Q.Th? ??c",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6784073628.88
+ },
+ {
+   "store_id": 45,
+   "store_name": "331A Nguy?n Thai Binh",
+   "address": "331A Nguy?n Thai Binh,P.12, Qu?n Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 24743225.19
+ },
+ {
+   "store_id": 46,
+   "store_name": "299 Nguy?n Tri Ph??ng",
+   "address": "299 Nguy?n Tri Ph??ng, P.5, Q.10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4887706688.93
+ },
+ {
+   "store_id": 47,
+   "store_name": "202E S? V?n H?nh",
+   "address": "202E S? V?n H?nh, P.9, Q.5",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6465644960.46
+ },
+ {
+   "store_id": 48,
+   "store_name": "206 Xo Vi?t Ngh? T?nh",
+   "address": "206 Xo Vi?t Ngh? T?nh, P.21, Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4991198517.88
+ },
+ {
+   "store_id": 49,
+   "store_name": "400 Le V?n S?",
+   "address": "400 Le V?n S?, P.2, Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4234569090.64
+ },
+ {
+   "store_id": 51,
+   "store_name": "90 Nguy?n V?n Th?",
+   "address": "90 Nguy?n V?n Th?, P.?a Kao, Qu?n 1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 3502642225.27
+ },
+ {
+   "store_id": 52,
+   "store_name": "145 V?nh Vi?n",
+   "address": "145 V?nh Vi?n, P.4, Qu?n 10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6045861574.62
+ },
+ {
+   "store_id": 53,
+   "store_name": "289 Vo V?n Ngan",
+   "address": "289 Vo V?n Ngan, P.Linh Chi?u, Q.Th? ??c",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4207778284.83
+ },
+ {
+   "store_id": 54,
+   "store_name": "37C Thu?n Ki?u",
+   "address": "37C Thu?n Ki?u, P.12, Q.5",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5661576816.98
+ },
+ {
+   "store_id": 55,
+   "store_name": "106 Tr?n Nhan Ton",
+   "address": "106 Tr?n Nhan Ton, P.2, Q.10",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4649779455.14
+ },
+ {
+   "store_id": 56,
+   "store_name": "21 Ter Tr?n Kh?c Chan",
+   "address": "21 Ter Tr?n Kh?c Chan, P.Tan ??nh, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 3743902345.39
+ },
+ {
+   "store_id": 57,
+   "store_name": "78-80 Ly Chinh Th?ng",
+   "address": "78-80 Ly Chinh Th?ng, P.8, Q.3",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5985987093.4
+ },
+ {
+   "store_id": 58,
+   "store_name": "59 ?? Quang ??u",
+   "address": "59 ?? Quang ??u, P.Ph?m Ng? Lao, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 90629676.05
+ },
+ {
+   "store_id": 59,
+   "store_name": "16 Qu?c H??ng",
+   "address": "16 Qu?c H??ng, P.Th?o ?i?n, Q.2",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 15739565462.01
+ },
+ {
+   "store_id": 60,
+   "store_name": "40 Qu?c H??ng",
+   "address": "40 Qu?c H??ng, P.Th?o ?i?n, Q.2",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 6597480812.43
+ },
+ {
+   "store_id": 61,
+   "store_name": "74 D1",
+   "address": "74 D1, P.25, Q.Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5216724365.64
+ },
+ {
+   "store_id": 62,
+   "store_name": "39 D2",
+   "address": "39 D2 P.25 Q.Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5782888335.09
+ },
+ {
+   "store_id": 63,
+   "store_name": "125 C?ng Qu?nh",
+   "address": "125 C?ng Qu?nh, P.Nguy?n C? Trinh, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 8000687559.43
+ },
+ {
+   "store_id": 64,
+   "store_name": "14B9 Ngo T?t T?",
+   "address": "14B9 Ngo T?t T?, P.19, Q.Binh Th?nh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5370717382.79
+ },
+ {
+   "store_id": 65,
+   "store_name": "111 Ngo Quy?n",
+   "address": "111 Ngo Quy?n, P.12, Q.5",
+   "area_id": "A03",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 5664151398.58
+ },
+ {
+   "store_id": 66,
+   "store_name": "54-56 Thai Th? Nh?n",
+   "address": "54-56 Thai Th? Nh?n, P.10, Q.Tan Binh",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 4718637577.79
+ },
+ {
+   "store_id": 67,
+   "store_name": "11C Nguy?n Th? Minh Khai",
+   "address": "11C Nguy?n Th? Minh Khai, P.B?n Nghe, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 9931524752.29
+ },
+ {
+   "store_id": 68,
+   "store_name": "89 ??ng V?n Ng?",
+   "address": "89-91 ??ng V?n Ng?, P.14, Q.Phu Nhu?n",
+   "area_id": "A02",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 43715177.74
+ },
+ {
+   "store_id": 69,
+   "store_name": "12 M?c ??nh Chi",
+   "address": "12 M?c ??nh Chi, P.?akao, Q.1",
+   "area_id": "A01",
+   "zone_id": "Z01",
+   "year": 2016,
+   "total_amount": 10349874372.64
+ },
