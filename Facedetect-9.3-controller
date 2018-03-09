@@ -1,0 +1,329 @@
+package application;
+
+import java.awt.List;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+
+import javafx.application.Platform;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+
+import org.slf4j.impl.StaticLoggerBinder;
+public class FaceDetectController implements Initializable {
+	
+	
+	@FXML 
+	private BorderPane webcamPane;
+	
+	@FXML 
+	private Button captureButton;
+	
+	@FXML 
+	private MediaView mediaView;
+	
+	@FXML
+	private Button showButton;
+	
+	@FXML 
+	private ImageView iv1;
+	
+	@FXML
+	private TextField userNameTF;
+	
+	@FXML
+	ImageView imgWebCamCapturedImage;
+	
+	@FXML
+	BorderPane bpWebCamPaneHolder;
+	
+	//
+	public void Connect(String img) {
+		
+		String url = "http://172.16.0.39:8000/testimages/";
+
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(url);
+		
+		String USER_AGENT="Mozilla/5.0";
+		// add header
+		post.setHeader("User-Agent", USER_AGENT);
+		
+		BasicNameValuePair f = new BasicNameValuePair("user", "joe");
+		ArrayList<NameValuePair> urlParameters = new ArrayList<NameValuePair>(5);
+		urlParameters.add(new BasicNameValuePair("sn", img));
+		urlParameters.add(new BasicNameValuePair("cn", ""));
+		urlParameters.add(new BasicNameValuePair("locale", ""));
+		urlParameters.add(new BasicNameValuePair("caller", ""));
+		urlParameters.add(new BasicNameValuePair("num", "12345"));
+		
+		try {
+			post.setEntity(new UrlEncodedFormEntity(urlParameters,"UTF-8"));
+			HttpResponse response = client.execute(post);
+			System.out.println("success");
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void takeSnapShot(ImageView scene){
+        WritableImage writableImage = new WritableImage((int)800, (int)600);
+        scene.snapshot(new SnapshotParameters(), writableImage);
+         
+        File file = new File("snapshot.png");
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
+            System.out.println("snapshot saved: " + file.getAbsolutePath());
+        } catch (IOException ex) {
+            Logger.getLogger(FaceDetectController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+	
+	public void showPhoto() {
+		File imgFile = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
+        Image img1 = new Image(imgFile.toURI().toString());
+		iv1.setImage(img1);
+		
+		takeSnapShot(imgWebCamCapturedImage);
+		try {
+			File imgFile2 = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
+	        Image img2 = new Image(imgFile2.toURI().toURL().toString());
+			iv1.setImage(img1);
+			String imgRequest;
+			imgRequest = imgToString(imgFile2);
+			Connect(imgRequest);
+			System.out.println(imgRequest);
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public void show() {
+		
+		File file = new File("D:\\1.mp4");
+		Media media = new Media(file.toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+	    mediaPlayer.setAutoPlay(true);
+
+	    mediaView.setMediaPlayer(mediaPlayer);
+	    mediaPlayer.play();
+	    System.out.println("jjj");
+	    
+	    
+	}
+		
+	private class WebCamInfo {
+
+		private String webCamName;
+		private int webCamIndex;
+
+		public String getWebCamName() {
+			return webCamName;
+		}
+
+		public void setWebCamName(String webCamName) {
+			this.webCamName = webCamName;
+		}
+
+		public int getWebCamIndex() {
+			return webCamIndex;
+		}
+
+		public void setWebCamIndex(int webCamIndex) {
+			this.webCamIndex = webCamIndex;
+		}
+
+		@Override
+		public String toString() {
+			return webCamName;
+		}
+	}
+
+	private BufferedImage grabbedImage;
+	private Webcam selWebCam = null;
+	private boolean stopCamera = false;
+	private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
+
+	private String cameraListPromptText = "Choose Camera";
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		ObservableList<WebCamInfo> options = FXCollections.observableArrayList();
+		int webCamCounter = 0;
+		for (Webcam webcam : Webcam.getWebcams()) {
+			WebCamInfo webCamInfo = new WebCamInfo();
+			webCamInfo.setWebCamIndex(webCamCounter);
+			webCamInfo.setWebCamName(webcam.getName());
+			options.add(webCamInfo);
+			webCamCounter++;
+		}
+		
+		initializeWebCam(0);
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				setImageViewSize();
+			}
+		});
+
+	}
+
+	protected void setImageViewSize() {
+
+		double height = bpWebCamPaneHolder.getHeight();
+		double width = bpWebCamPaneHolder.getWidth();
+		imgWebCamCapturedImage.setFitHeight(1280);
+		imgWebCamCapturedImage.setFitWidth(720);
+		imgWebCamCapturedImage.prefHeight(1280);
+		imgWebCamCapturedImage.prefWidth(720);
+		imgWebCamCapturedImage.setPreserveRatio(true);
+
+	}
+
+	//Khoi tao webcam va bat dau ket noi
+	protected void initializeWebCam(final int webCamIndex) {
+
+		Task<Void> webCamIntilizer = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+
+				if (selWebCam == null) {
+					selWebCam = Webcam.getWebcams().get(webCamIndex);
+					selWebCam.open();
+				} else {
+					selWebCam.close();
+					selWebCam = Webcam.getWebcams().get(webCamIndex);
+					selWebCam.open();
+				}
+				startWebCamStream();
+				return null;
+			}
+
+		};
+
+		new Thread(webCamIntilizer).start();
+	}
+
+	protected void startWebCamStream() {
+
+		stopCamera = false;
+		Task<Void> task = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+
+				while (!stopCamera) {
+					try {
+						if ((grabbedImage = selWebCam.getImage()) != null) {
+
+							Platform.runLater(new Runnable() {
+
+								@Override
+								public void run() {
+									final Image mainiamge = SwingFXUtils
+										.toFXImage(grabbedImage, null);
+									imageProperty.set(mainiamge);
+								}
+							});
+
+							grabbedImage.flush();
+
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+				return null;
+			}
+
+		};
+		Thread th = new Thread(task);
+		th.setDaemon(true);
+		th.start();
+		imgWebCamCapturedImage.imageProperty().bind(imageProperty);
+
+	}
+	
+	public String imgToString(File inputImg) {
+		try {
+			FileInputStream imageInFile = new FileInputStream(inputImg);
+	        byte imageData[] = new byte[(int) inputImg.length()];
+	        imageInFile.read(imageData);
+	        
+	        // Converting Image byte array into Base64 String
+	        String imageDataString = encodeImage(imageData);
+	        return imageDataString;
+        
+		}
+		catch (IOException  e) {
+			System.out.println("Image not found" + e);
+		
+		}
+		return "";
+	}
+	
+	public String encodeImage(byte[] imageByteArray) {
+		return Base64.encodeBase64URLSafeString(imageByteArray);
+	}
+	// Connect Server 
+}
