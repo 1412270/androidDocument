@@ -343,7 +343,50 @@ public class FaceDetectController implements Initializable {
             t = new Timer();
             t.scheduleAtFixedRate(task, 0, 1000);
         }
-	}
+}
 	
+	
+	public void takeSnapShot(ImageView scene){
+		
+        WritableImage writableImage = new WritableImage((int)285, (int)235);
+        for(int j=0; j<4; j++) {
+        	String cd = "Auto shot in " + (3-j) + "s";
+        	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(j+1), ev -> {
+        		cdLabel.setText(cd);
+        	}));
+        	timeline2.play();
+        }
+        Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
+    		cdLabel.setText("");
+    	}));
+    	timeline3.play();
+        for(int i=0; i<3; i++) {
+        	System.out.println("ss");
+        	String imgName = "snapshot" + String.valueOf(i) + ".png";
+        	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3+1*i+1), ev -> {
+        		
+            	scene.snapshot(new SnapshotParameters(), writableImage);
+               // String imgName = "snapshot" + String(i) + ".png";
+            	
+                File file = new File(imgName);
+                try {
+                    ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
+                    System.out.println("snapshot saved: " + file.getAbsolutePath());
+                    File imgFile2 = new File("C:\\Users\\Kiet\\eclipse-workspace\\FaceDetect\\snapshot1.png");
+        	        Image img2 = new Image(imgFile2.toURI().toURL().toString());
+        			iv1.setImage(img2);
+                } catch (IOException ex) {
+                    Logger.getLogger(FaceDetectController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }));
+     
+            timeline.play();
+         //   timeline.stop();
+        }
+   
+    }
+
 	// Connect Server 
+	
+	
 }
