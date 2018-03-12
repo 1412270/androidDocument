@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Dimension;
 import java.awt.List;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -11,6 +12,10 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -22,6 +27,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -30,6 +36,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 
 import javafx.beans.property.ObjectProperty;
@@ -46,6 +54,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +64,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -74,28 +84,39 @@ public class FaceDetectController implements Initializable {
 	private Button captureButton;
 	
 	@FXML 
-	private MediaView mediaView;
-	
-	@FXML
-	private Button showButton;
-	
-	@FXML 
 	private ImageView iv1;
 	
 	@FXML
 	private TextField userNameTF;
 	
 	@FXML
-	ImageView imgWebCamCapturedImage;
+	private ImageView imgWebCamCapturedImage;
 	
 	@FXML
 	BorderPane bpWebCamPaneHolder;
 	
+	@FXML
+	private Label cdLabel;
+	
+	@FXML
+	private Button readyButton;
+	
+	@FXML
+	private Label resultlabel;
+	
+	
+	
 	//
-	public void Connect(String img) {
+	public void Connect() {
 		
+		File imgFile = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot1.png");
+		
+		String imgStr = imgToString(imgFile);
+		System.out.println(imgStr);
+		String userName = userNameTF.getText();
+		String userID = "0015";
 		String url = "http://172.16.0.39:8000/testimages/";
-
+		
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
 		
@@ -104,17 +125,28 @@ public class FaceDetectController implements Initializable {
 		post.setHeader("User-Agent", USER_AGENT);
 		
 		BasicNameValuePair f = new BasicNameValuePair("user", "joe");
-		ArrayList<NameValuePair> urlParameters = new ArrayList<NameValuePair>(5);
-		urlParameters.add(new BasicNameValuePair("img64", img));
-		urlParameters.add(new BasicNameValuePair("cn", ""));
-		urlParameters.add(new BasicNameValuePair("locale", ""));
-		urlParameters.add(new BasicNameValuePair("caller", ""));
-		urlParameters.add(new BasicNameValuePair("num", "12345"));
+		ArrayList<NameValuePair> urlParameters = new ArrayList<NameValuePair>(2);
+		urlParameters.add(new BasicNameValuePair("img64", imgStr));
+		urlParameters.add(new BasicNameValuePair("id", userID));
+		urlParameters.add(new BasicNameValuePair("name", userName));
 		
 		try {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters,"UTF-8"));
 			HttpResponse response = client.execute(post);
 			System.out.println("success");
+			
+//			HttpEntity entiry = response.getEntity();
+//			result = 
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+            }
+            
+            
+            
+			
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,13 +155,16 @@ public class FaceDetectController implements Initializable {
 			e.printStackTrace();
 		}
 		
+		String url2 = "http://172.16.0.38:5000/register_user/";
+		
 	}
 	
-	public void takeSnapShot(ImageView scene){
-        WritableImage writableImage = new WritableImage((int)800, (int)600);
+	public void takeSnapShot2(ImageView scene){
+        WritableImage writableImage = new WritableImage((int)600, (int)450);
         scene.snapshot(new SnapshotParameters(), writableImage);
          
         File file = new File("snapshot.png");
+        
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
             System.out.println("snapshot saved: " + file.getAbsolutePath());
@@ -138,39 +173,27 @@ public class FaceDetectController implements Initializable {
         }
     }
 	
-	public void showPhoto() {
-		File imgFile = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
-        Image img1 = new Image(imgFile.toURI().toString());
-		iv1.setImage(img1);
-		
-		takeSnapShot(imgWebCamCapturedImage);
-		try {
-			File imgFile2 = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
-	        Image img2 = new Image(imgFile2.toURI().toURL().toString());
-			iv1.setImage(img1);
-			String imgRequest;
-			imgRequest = imgToString(imgFile2);
-			
-			Connect(imgRequest);
-			System.out.println(imgRequest);
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
 	
-	public void show() {
+	
+	public void showPhoto() {
 		
-		File file = new File("D:\\1.mp4");
-		Media media = new Media(file.toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
-	    mediaPlayer.setAutoPlay(true);
-
-	    mediaView.setMediaPlayer(mediaPlayer);
-	    mediaPlayer.play();
-	    System.out.println("jjj");
-	    
-	    
+		takeSnapShot();
+//		File imgFile = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
+//        Image img1 = new Image(imgFile.toURI().toString());
+//		iv1.setImage(img1);
+//		try {
+//			File imgFile2 = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\snapshot.png");
+//	        Image img2 = new Image(imgFile2.toURI().toURL().toString());
+//			iv1.setImage(img1);
+//			String imgRequest;
+//			imgRequest = imgToString(imgFile2);
+//			
+//			Connect(imgRequest);
+//			System.out.println(imgRequest);
+//		} catch (MalformedURLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 	}
 		
 	private class WebCamInfo {
@@ -233,14 +256,13 @@ public class FaceDetectController implements Initializable {
 
 	protected void setImageViewSize() {
 
-		double height = bpWebCamPaneHolder.getHeight();
-		double width = bpWebCamPaneHolder.getWidth();
-		imgWebCamCapturedImage.setFitHeight(1280);
-		imgWebCamCapturedImage.setFitWidth(720);
-		imgWebCamCapturedImage.prefHeight(1280);
-		imgWebCamCapturedImage.prefWidth(720);
+	//	double height = bpWebCamPaneHolder.getHeight();
+	//	double width = bpWebCamPaneHolder.getWidth();
+		imgWebCamCapturedImage.setFitHeight(625);
+		imgWebCamCapturedImage.setFitWidth(460);
+		imgWebCamCapturedImage.prefHeight(625);
+		imgWebCamCapturedImage.prefWidth(460);
 		imgWebCamCapturedImage.setPreserveRatio(true);
-
 	}
 	
 	//Khoi tao webcam va bat dau ket noi
@@ -253,10 +275,12 @@ public class FaceDetectController implements Initializable {
 
 				if (selWebCam == null) {
 					selWebCam = Webcam.getWebcams().get(webCamIndex);
+					selWebCam.setViewSize(new Dimension(640, 480));
 					selWebCam.open();
 				} else {
 					selWebCam.close();
 					selWebCam = Webcam.getWebcams().get(webCamIndex);
+					selWebCam.setViewSize(new Dimension(640, 480));
 					selWebCam.open();
 				}
 				startWebCamStream();
@@ -331,24 +355,10 @@ public class FaceDetectController implements Initializable {
 		return Base64.encodeBase64URLSafeString(imageByteArray);
 	}
 	
-	public void autoShoot() {
-		Timer t = new Timer();
-		if (t == null) {
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                   //Do your work
-                }
-            };
-            t = new Timer();
-            t.scheduleAtFixedRate(task, 0, 1000);
-        }
-}
-	
-	
-	public void takeSnapShot(ImageView scene){
+	public void takeSnapShot(){
 		
-        WritableImage writableImage = new WritableImage((int)285, (int)235);
+        WritableImage writableImage = new WritableImage((int)640, (int)480);
+        
         for(int j=0; j<4; j++) {
         	String cd = "Auto shot in " + (3-j) + "s";
         	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(j+1), ev -> {
@@ -356,37 +366,62 @@ public class FaceDetectController implements Initializable {
         	}));
         	timeline2.play();
         }
+        
         Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(5), ev -> {
     		cdLabel.setText("");
     	}));
+        
     	timeline3.play();
         for(int i=0; i<3; i++) {
         	System.out.println("ss");
         	String imgName = "snapshot" + String.valueOf(i) + ".png";
-        	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3+1*i+1), ev -> {
+        	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4+1*i+1), ev -> {
         		
-            	scene.snapshot(new SnapshotParameters(), writableImage);
-               // String imgName = "snapshot" + String(i) + ".png";
+        		imgWebCamCapturedImage.snapshot(new SnapshotParameters(), writableImage);
             	
                 File file = new File(imgName);
+                
                 try {
                     ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
                     System.out.println("snapshot saved: " + file.getAbsolutePath());
-                    File imgFile2 = new File("C:\\Users\\Kiet\\eclipse-workspace\\FaceDetect\\snapshot1.png");
+                    File imgFile2 = new File("C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\" + imgName);
         	        Image img2 = new Image(imgFile2.toURI().toURL().toString());
         			iv1.setImage(img2);
                 } catch (IOException ex) {
                     Logger.getLogger(FaceDetectController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }));
-     
             timeline.play();
-         //   timeline.stop();
         }
    
     }
-
+	
+	public void recordDatabase() {
+		Connection conn = null;
+        try {
+            // db parameters
+            String url = "jdbc:sqlite:C:\\Users\\kiet-lta\\Downloads\\FaceDetect\\src\\application\\db_1.sqlite3";
+            // create a connection to the database
+            conn = DriverManager.getConnection(url);
+            
+            System.out.println("Connection to SQLite has been established.");
+            
+            String query = "INSERT INTO demo_stafffujinet VALUES (10, 'LTA Kiet', '2018-3-10', 'Junior Staff 1', 1, 'Male', 'unknown', 'unknown', 'unknown')";
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+	}
 	// Connect Server 
-	
-	
 }
