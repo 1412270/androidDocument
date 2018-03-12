@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.media.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.*?>
 
-<AnchorPane prefHeight="647.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane layoutY="99.0" prefHeight="101.0" prefWidth="459.0" />
-      <Pane blendMode="DARKEN" layoutX="7.0" layoutY="9.0" prefHeight="141.0" prefWidth="459.0" style="-fx-background-color: #2f4f4f;;">
-         <children>
-            <RadioButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="117.0" layoutY="14.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="230.0" layoutY="14.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="334.0" layoutY="11.0" mnemonicParsing="false" text="RadioButton" />
-            <Label layoutX="163.0" layoutY="84.0" text="Label" />
-            <ComboBox layoutX="218.0" layoutY="80.0" prefHeight="23.0" prefWidth="85.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="7.0" layoutY="150.0" prefHeight="253.0" prefWidth="459.0" style="-fx-background-color: #27605d;">
-         <children>
-            <Label layoutX="31.0" layoutY="46.0" prefHeight="29.0" prefWidth="67.0" text="user name" />
-            <TextField layoutX="111.0" layoutY="49.0" prefHeight="23.0" prefWidth="172.0" text="Someone" />
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
-            <Button layoutX="22.0" layoutY="136.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="103.0" text="photo shoot" />
-         </children>
-      </Pane>
-      <Pane layoutX="7.0" layoutY="413.0" prefHeight="220.0" prefWidth="459.0" style="-fx-background-color: #337a76;">
-         <children>
-            <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="10.0" style="-fx-blend-mode: darkList;" />
-            <Pane layoutX="245.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+<AnchorPane prefHeight="926.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FaceDetectController">
+  <children>
+    <BorderPane layoutY="99.0" prefHeight="101.0" prefWidth="459.0" />
+    <Pane blendMode="DARKEN" layoutX="9.0" layoutY="50.0" prefHeight="141.0" prefWidth="898.0" style="-fx-background-color: #2f4f4f;;">
+      <children>
+            <Pane layoutX="27.0" layoutY="20.0" prefHeight="56.0" prefWidth="361.0" style="-fx-background-color: #8091ad;">
                <children>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+              <RadioButton layoutX="26.0" layoutY="20.0" mnemonicParsing="false" text="New'" textFill="WHITE" />
+              <RadioButton layoutX="99.0" layoutY="20.0" mnemonicParsing="false" text="Update" textFill="WHITE" />
+              <RadioButton layoutX="181.0" layoutY="20.0" mnemonicParsing="false" text="Delete" textFill="WHITE" />
+              <RadioButton layoutX="282.0" layoutY="20.0" mnemonicParsing="false" text="View" textFill="WHITE" />
                </children>
             </Pane>
+      </children>
+    </Pane>
+    
+    <Pane layoutX="9.0" layoutY="191.0" prefHeight="391.0" prefWidth="898.0" style="-fx-background-color: #27605d;">
+      <children>
+        <Button fx:id="captureButton" layoutX="31.0" layoutY="127.0" mnemonicParsing="false" onAction="#showPhoto" prefHeight="56.0" prefWidth="103.0" text="photo shoot" />
+            <Button fx:id="readyButton" layoutX="167.0" layoutY="127.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="91.0" text="Ready" />
+            <Label fx:id="cdLabel" layoutX="31.0" layoutY="211.0" textFill="WHITE" />
+            <ImageView fx:id="imgWebCamCapturedImage" fitHeight="360.0" fitWidth="525.0" layoutX="358.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+      </children>
+    </Pane>
+    
+    <Pane layoutX="10.0" layoutY="589.0" prefHeight="324.0" prefWidth="898.0" style="-fx-background-color: #337a76;">
+         <children>
+        <ImageView fx:id="iv1" fitHeight="288.0" fitWidth="420.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="578.0" layoutY="93.0" prefHeight="29.0" prefWidth="67.0" text="User name" textFill="WHITE" />
+        <TextField fx:id="userNameTF" layoutX="578.0" layoutY="122.0" prefHeight="23.0" prefWidth="172.0" />
+            <Button fx:id="okButton" layoutX="578.0" layoutY="196.0" mnemonicParsing="false" onAction="#Connect" prefHeight="56.0" prefWidth="121.0" text="Register" />
+            <Label fx:id="resultLabel" layoutX="587.0" layoutY="341.0" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="578.0" layoutY="43.0" text="User ID" textFill="WHITE" />
+        <ComboBox layoutX="666.0" layoutY="27.0" prefHeight="47.0" prefWidth="85.0" promptText="001" />
          </children>
-      </Pane>
-   </children>
+    </Pane>
+    
+      <Label layoutX="14.0" layoutY="23.0" prefHeight="27.0" prefWidth="337.0" text="Facial check user master entry">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font>
+      </Label>
+  </children>
 </AnchorPane>
