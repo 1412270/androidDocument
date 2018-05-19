@@ -1,0 +1,264 @@
+<body>
+    
+    {% include 'components/jsinclude.html' %}
+    <!-- Start Page Loading -->
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    {% include 'components/header.html' %}
+    <!-- END HEADER -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
+            <!-- START LEFT SIDEBAR NAV-->
+            {% include 'components/sidebar.html' %}
+            <section id="content">
+                <div class="container">
+                    <div id="chart-dashboard">
+
+                        <span class="teal-text" style="font-size: 36pt;" id="storename"> Thông tin doanh thu cửa hàng </span>
+
+                        <div class="row">
+                            <div class="col s12 l4">
+                                <img src="{% static 'images/store/others'%}/{{store.store_id}}.jpg" 
+                                    style="width: 80%; margin-top: 50px; margin-bottom: 50px; display: block;" alt=""
+                                    class="responsive-img valign profile-image">     
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="card" style="margin-top: 50px; margin-bottom: 50px;">
+                                    <div class="card-content">
+                                        <ul>
+                                            <li>{% trans 'Tên cửa hàng' %}: <strong>{{store.store_name}}</strong></li>
+                                            <li>{% trans 'Địa chỉ' %}: <strong>{{store.address}}</strong></li>
+                                            <li>{% trans 'Ngày mở cửa hàng' %}: <strong>{{store.opening_date}}</strong></li>
+                                            <li>{% trans 'Số điện thoại' %}: <strong>{{store.phone}}</strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <span class="teal-text" style="font-size: 36pt;" > Chọn một danh mục </span>
+                                <select id="categoryList">
+                                    {% for value in category %}
+                                        <option value=""> {{value.0}} </option>
+                                    {% endfor %}
+                                </select>
+                                <span class="teal-text" style="font-size: 36pt;" > Chọn một sản phẩm </span>
+                                <select id="productList">
+                                    
+                                </select>
+                                <a href="#" class="waves-effect waves-light btn" style="width: 200px; font-size: 15px;" onclick=""> {% trans 'Dự đoán sản phẩm' %} </a> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 m8 l8">
+                              <div class="move-up cyan darken-1">
+                                <span class="white-text" style="font-size: 30pt;" id="storename">  </span>
+                                <div>
+                                    <span class="chart-title white-text" style="font-size: 30pt;" >{{ temp.0.0 }}</span>
+                                    <div class="chart-revenue cyan darken-2 white-text">
+                                        <p class="chart-revenue-total" id="totalSales1" style="font-size: 20pt;"></p>
+                                        <p class="chart-revenue-per"><i class="mdi-navigation-arrow-drop-up"></i> </p>
+                                    </div>
+                                </div>
+                                <div class="trending-line-chart-wrapper">
+                                    <canvas id="trending-line-chart" height="120"></canvas>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                </div>
+                <!--end container-->
+            </section>
+            
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!-- ================================================
+    Scripts
+    ================================================ -->
+    
+
+    <!-- <script type="text/javascript" src="js/recommend.js"></script> -->
+    <!-- Toast Notification -->
+    <script type="text/javascript">
+
+        // alert({{category.1.1}})
+        var config = {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: "{% trans 'Doanh thu trong năm (2017)' %}",
+                    data: [],
+                    // backgroundColor: "#80deea",
+                    // strokeColor: "rgba(220,220,220,1)",
+                    borderColor: "rgba(0, 99, 132, 1)",
+                    // fill: true,
+                    // pointColor: "#fffff",
+                    // fillColor: "rgba(220,220,220,0.2)",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "#fffff",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#fffff",
+                },
+                {
+                    label: "{% trans 'Doanh thu trong năm (2016)' %}",
+                    data: [],
+                    // backgroundColor: "#80deea",
+                    // strokeColor: "rgba(220,220,220,1)",
+                    borderColor: "rgba(240, 99, 132, 1)",
+                    // fill: true,
+                    // pointColor: "#fffff",
+                    // fillColor: "rgba(220,220,220,0.2)",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "#fffff",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#fffff",
+                }]
+            },
+            options: {
+                responsive: true,
+
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: "{% trans 'Tháng' %}",
+                            fontSize: 15,
+                            fontColor: "#fff"
+                        },
+                        gridLines: {
+                            display: false ,
+                            color: "#rgba(255,255,255,0.4)",
+                        },
+                        ticks: {
+                            fontColor: '#ffffff', 
+                            autoSkip: true,
+                            maxTicksLimit: 12,
+                        },
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: "{% trans 'Doanh thu' %}",
+                            fontSize: 15,
+                            fontColor: "#fff",
+                        },
+
+                        gridLines: {
+                            display: true ,
+                            color: "#ffffff"
+                        },
+                        ticks: {
+                            fontColor: '#ffffff', 
+                        },
+                    }]
+                }
+            }
+        };
+
+        // $('#storename').text('{{store.store_name}}');
+
+
+        function changeLineChart() {
+
+            var time = $("input[type='radio'][name='time1']:checked").val();
+            var query = ''
+            
+            if(time == "month") {
+                query = "SELECT store_id, ceil(ef_date/100)-1, ceil(sum(total_amount/1000000)) FROM daily_sales_store WHERE (ceil(ef_date/10000 - 1) = 2017 or ceil(ef_date/10000 - 1) = 2016) and store_id = 1 GROUP BY store_id, ceil(ef_date/100)-1;"
+                config.options.scales.xAxes[0].scaleLabel.labelString = "{% trans 'Tháng' %}"
+            }
+            if(time == 'quarter') {
+                query = "SELECT store_id, ceil(ef_date/10000 - 1)*100 + ceil((ef_date%10000)/310), ceil(sum(total_amount/1000000)) FROM daily_sales_store WHERE (ceil(ef_date/10000 - 1) = 2017 or ceil(ef_date/10000 - 1) = 2016) and store_id = 1 GROUP BY store_id, ceil(ef_date/10000 - 1)*100 + ceil((ef_date%10000)/310);"
+                config.options.scales.xAxes[0].scaleLabel.labelString = "{% trans 'Quý' %}"
+            }
+            if(time == 'week') {
+                query = "SELECT good_id, good_name, pd.category_name, unit_retail_price, ceil(sum(total_amount_all)/1000) as total FROM product_ranking_allstore_2017 tran join product pd on tran.good_id = pd.item_code WHERE ceil(ef_date/10000 - 1)*10 + ceil((ef_date%10000)/310) = 20174 group by good_id, good_name, ceil(ef_date/100) order by ceil(sum(total_amount_all)/1000) DESC limit 10"
+                config.options.scales.xAxes[0].scaleLabel.labelString = "{% trans 'Tuần' %}"
+            }
+            if(time == "range") {
+                // var date = $("#datepicker1").( "getDate" );
+                var datePickerObject = $('#datepicker1').pickadate().pickadate('picker')
+                // alert(datePickerObject)
+            }
+
+            $.ajax({
+                type:"POST",
+                url: "/get_data/",
+                data: {
+                  'query': query
+                },
+                dataType : 'json',
+                success: function(response) {
+
+                    var value1 = new Array();
+                    var label1 = new Array();
+                    var value2 = new Array();
+                    var label2 = new Array();
+                    for (var i=0; i < (response.row.length/2); i++){
+                        value1.push(response.row[i][2]/1000)
+                        label1.push(response.row[i][1]%100)
+                    }
+                    for (var i=(response.row.length/2); i < response.row.length; i++){
+                        value2.push(response.row[i][2]/1000)
+                        label2.push(response.row[i][1]%100)
+                    }
+                    config.data.labels = label1;
+                    config.data.datasets[0].data = value1;
+                    config.data.datasets[1].data = value2;
+
+                    var ctx = document.getElementById("trending-line-chart").getContext("2d");
+                    myLine.destroy();
+                    myLine = new Chart(ctx, config);
+                }
+            });
+        }
+
+        // $.getJSON("{% static 'database/category.json' %}", function (json) {
+
+        //     var value1 = new Array();
+        //     var value2 = new Array();
+
+        //     for(var i=0; i< 12; i++){
+        //         value1.push(json[i].category);
+        //     }
+        //     // var select2 = document.getElementById("categoryList");
+        //     // $.each(value1, function (i, item) {
+        //     //     $('#categoryList').append($('<option>', { 
+        //     //         value: i,
+        //     //         text : value1
+        //     //     }))
+
+        //     // });
+        // })
+
+    </script>
+</body>
+
+</html>
