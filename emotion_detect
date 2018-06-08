@@ -1,0 +1,43 @@
+import cntk as C
+
+import numpy as np
+from keras.preprocessing import image
+from PIL import Image
+
+# Load the ONNX model
+#z = C.Function.load("vgg19/model.pb", device=C.device.cpu(), format=C.ModelFormat.ONNX)
+
+z = C.Function.load("emotion_ferplus.onnx", format=C.ModelFormat.ONNX)
+# x=Image.open('girl.jpg','r')
+# x=x.convert('L')
+# y=np.asarray(x.getdata(),dtype=np.float64).reshape((x.size[1],x.size[0]))
+
+# y=np.asarray(y,dtype=np.uint8) #if values still in range 0-255! 
+# w=Image.fromarray(y,mode='L')
+# w.save('out.jpg')
+
+# print("success")
+
+# img = Image.open("smile.jpg")
+img = image.load_img("sad2.jpg", False, None)
+
+img = img.resize((64, 64))
+rgb_img = np.asarray(img, dtype=np.float32) - 32
+bgr_img = rgb_img[..., [0]]
+img_data = np.ascontiguousarray(np.rollaxis(bgr_img,2))
+
+x = img.convert('L')
+y = np.asarray(x.getdata(),dtype=np.float64).reshape((x.size[1],x.size[0]))
+
+y = np.asarray(y,dtype=np.uint8) #if values still in range 0-255! 
+w = Image.fromarray(y,mode='L')
+w.save('out2.jpg')
+
+img2 = w
+rgb_img2 = np.asarray(img2, dtype=np.float32)
+bgr_img2 = rgb_img2[..., [0]]
+img_data2 = np.ascontiguousarray(np.rollaxis(bgr_img2, 1))
+
+predictions  = np.squeeze(z.eval({z.arguments[0]:[img_data]}))
+top_class = np.argmax(predictions)
+print(top_class)
