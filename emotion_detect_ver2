@@ -1,0 +1,62 @@
+import cntk as C
+
+import numpy as np
+from keras.preprocessing import image
+from PIL import Image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import cv2
+import dlib
+
+# Load the ONNX model
+#z = C.Function.load("vgg19/model.pb", device=C.device.cpu(), format=C.ModelFormat.ONNX)
+
+
+z = C.Function.load("emotion_ferplus.onnx", format=C.ModelFormat.ONNX)
+haar_face_cascade = cv2.CascadeClassifier('data/haarcascade_frontalface_alt.xml')
+detector = dlib.get_frontal_face_detector()
+win = dlib.image_window()
+
+def rgb2gray(rgb):
+    return np.dot(rgb[...,:3], [0.299, 0.587, 0.114])
+
+img = cv2.imread('sad3.PNG',0)
+
+print(img.shape)
+
+dets = detector(img, 1)
+
+print("Number of faces detected: {}".format(len(dets)))
+
+
+array_face = []
+
+for i, d in enumerate(dets):
+	print("Detection {}: Left: {} Top: {} Right: {} Bottom: {}".format(
+	    i, d.left(), d.top(), d.right(), d.bottom()))
+
+	tuple_template = { 'left': d.left(), 'right': d.right(), 'top': d.top(), 'bottom': d.bottom() }
+
+	array_face.append(tuple_template)
+
+
+print len(array_face)
+
+img = img[array_face[0]['top']:array_face[0]['bottom'], array_face[0]['left']:array_face[0]['right']]
+
+img = np.asarray(img, dtype=np.float32) - 128
+
+img = np.resize(img, (64, 64, 1))
+
+# img = img.resize((64, 64, 1))
+# img = resize(img, (64, 64), anti_aliasing=True)
+
+cv2.imshow('image',img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+img_data = np.ascontiguousarray(np.rollaxis(img,  2))
+
+predictions  = np.squeeze(z.eval({z.arguments[0]:[img_data]}))
+top_class = np.argmax(predictions)
+print(top_class)
