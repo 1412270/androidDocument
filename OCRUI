@@ -1,0 +1,477 @@
+import sys, os, io
+import ntpath
+import cv2
+import numpy as np
+from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
+from PyQt5.QtCore import Qt, QSize, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout
+from PyQt5.QtGui import QImage, QPixmap, QPainterPath, QIcon, QPen, QColor
+
+from PIL import ImageGrab
+import tkinter as tk
+
+FILENAME = "test_22.PNG"
+DETECT_RESULT = "result/test.png"
+
+WIDTH = 754
+
+class QExampleLabel(QLabel):
+    def __init__(self, parent):
+        super(QExampleLabel, self).__init__(parent)
+        self.initUI()
+
+    def initUI (self):
+
+        self.setAlignment(Qt.AlignCenter)
+        self.setScaledContents(True)
+        self.setPixmap(QPixmap('scan1.PNG'))
+        
+
+    def mousePressEvent (self, eventQMouseEvent):
+        self.originQPoint = eventQMouseEvent.pos()
+        self.currentQRubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.currentQRubberBand.setGeometry(QRect(self.originQPoint, QtCore.QSize()))
+        self.currentQRubberBand.show()
+
+    def mouseMoveEvent (self, eventQMouseEvent):
+        self.currentQRubberBand.setGeometry(QRect(self.originQPoint, eventQMouseEvent.pos()).normalized())
+
+    def mouseReleaseEvent (self, eventQMouseEvent):
+        self.currentQRubberBand.hide()
+        currentQRect = self.currentQRubberBand.geometry()
+        self.currentQRubberBand.deleteLater()
+        cropQPixmap = self.pixmap().copy(currentQRect)
+        cropQPixmap.save('output.png')
+
+class QtImageViewer(QGraphicsView):
+
+    leftMouseButtonPressed = pyqtSignal(float, float)
+    rightMouseButtonPressed = pyqtSignal(float, float)
+    leftMouseButtonReleased = pyqtSignal(float, float)
+    rightMouseButtonReleased = pyqtSignal(float, float)
+    leftMouseButtonDoubleClicked = pyqtSignal(float, float)
+    rightMouseButtonDoubleClicked = pyqtSignal(float, float)
+
+    temp = 0;
+
+    def __init__(self, parent):
+        
+        super(QtImageViewer, self).__init__(parent)
+        # Image is displayed as a QPixmap in a QGraphicsScene attached to this QGraphicsView.
+        self.scene = QGraphicsScene()
+        self.setScene(self.scene)
+
+        # Store a local handle to the scene's current image pixmap.
+        root = tk.Tk()
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        self.setGeometry(0, 0, screen_width, screen_height)
+
+        self._pixmapHandle = None
+
+        self.aspectRatioMode = Qt.KeepAspectRatio
+        
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+        # Stack of QRectF zoom boxes in scene coordinates.
+        self.zoomStack = []
+
+        # Flags for enabling/disabling mouse interaction.
+        self.canZoom = True
+        self.canPan = True
+
+        self.begin = QPoint()
+        self.end = QPoint()
+
+
+    def hasImage(self):
+        
+        return self._pixmapHandle is not None
+
+    def clearImage(self):
+        
+        if self.hasImage():
+            self.scene.removeItem(self._pixmapHandle)
+            self._pixmapHandle = None
+
+    def pixmap(self):
+        
+        if self.hasImage():
+            return self._pixmapHandle.pixmap()
+        return None
+
+    def image(self):
+        
+        if self.hasImage():
+            return self._pixmapHandle.pixmap().toImage()
+        return None
+
+    def setImage(self, image):
+
+        print('try')
+
+        if type(image) is QPixmap:
+            pixmap = image
+        elif type(image) is QImage:
+            pixmap = QPixmap.fromImage(image)
+            print(2)
+        else:
+            raise RuntimeError("ImageViewer.setImage: Argument must be a QImage or QPixmap.")
+            print('false')
+        if self.hasImage():
+            self._pixmapHandle.setPixmap(pixmap)
+            print(3)
+        else:
+            self._pixmapHandle = self.scene.addPixmap(pixmap)
+            print(4)
+        self.setSceneRect(QRectF(pixmap.rect()))  # Set scene size to image size.
+        self.updateViewer()
+
+    def loadImageFromFile(self):
+
+        if QT_VERSION_STR[0] == '4':
+            fileName = QFileDialog.getOpenFileName(self, "Open image file.")
+        elif QT_VERSION_STR[0] == '5':
+            fileName, dummy = QFileDialog.getOpenFileName(self, "Open image file.")
+        if len(fileName) and os.path.isfile(fileName):
+            image = QImage(fileName)
+            self.setImage(image)
+        # self.show()
+
+    def updateViewer(self):
+        
+        if not self.hasImage():
+            return
+        if len(self.zoomStack) and self.sceneRect().contains(self.zoomStack[-1]):
+            self.fitInView(self.zoomStack[-1], Qt.IgnoreAspectRatio)  # Show zoomed rect (ignore aspect ratio).
+        else:
+            self.zoomStack = []  # Clear the zoom stack (in case we got here because of an invalid zoom).
+            self.fitInView(self.sceneRect(), self.aspectRatioMode)  # Show entire image (use current aspect ratio mode).
+
+    def resizeEvent(self, event):
+        
+        self.updateViewer()
+
+
+    def mousePressEvent(self, event):
+ 
+        print('Start')
+        self.originQPoint = event.pos()
+        self.currentQRubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.currentQRubberBand.setStyle(QStyleFactory.create('windowsvista'))
+        self.currentQRubberBand.setGeometry(QRect(self.originQPoint, QSize()))
+        self.currentQRubberBand.show()
+        QGraphicsView.mousePressEvent(self, event)
+        self.begin = event.pos()
+        print(self.begin)
+        self.end = self.begin
+        self.update()
+
+
+    def mouseMoveEvent (self, event):
+        self.currentQRubberBand.setGeometry(QRect(self.originQPoint, event.pos()).normalized())
+        QGraphicsView.mouseMoveEvent(self, event)
+        self.end = event.pos()
+        # self.update()
+
+    def mouseReleaseEvent (self, event):
+        self.currentQRubberBand.hide()
+        self.currentQRubberBand.deleteLater()
+        QtTest.QTest.qWait(1000)
+        x1 = min(self.begin.x(), self.end.x())
+        y1 = min(self.begin.y(), self.end.y())
+        x2 = max(self.begin.x(), self.end.x())
+        y2 = max(self.begin.y(), self.end.y())
+
+        img = ImageGrab.grab(bbox=(x1, y1, x2, y2))
+        print("complete")
+        img.save('capture.png')
+        temp = 1
+        img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
+        print('End')
+        self.close()
+
+        pixmap = QPixmap('capture.png')
+        self.parent.label_2.setScaledContents(True)
+        self.parent.label_2.setPixmap(pixmap)
+
+class BtnTitlebar(QPushButton):
+    def __init__(self, *args, **kwargs):
+        super(BtnTitlebar, self).__init__(*args, **kwargs)
+        self.m_ishover = False
+        
+    def paintEvent(self, evt):
+        super(BtnTitlebar, self).paintEvent(evt)
+        
+    def isHover(self):
+        return self.m_ishover
+        
+    def enterEvent(self, evt):
+        self.m_ishover = True
+        
+    def leaveEvent(self, evt):
+        self.m_ishover = False
+
+class BtnMinimize(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnMinimize, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnMinimize, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            painter.fillRect(QtCore.QRect(10,14,8,2), QtGui.QColor("#FFFFFF"))
+        else:
+            painter.fillRect(QtCore.QRect(10,14,8,2), QtGui.QColor("#282828"))
+
+class BtnClose(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnClose, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnClose, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor("#FFFFFF")), 1.42))
+        else:
+            painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor("#282828")), 1.42))
+        
+        painter.drawLine(15,10,20,15)
+        painter.drawPoint(14,9)
+        painter.drawPoint(21,15)
+        
+        painter.drawLine(20,10,15,15)
+        painter.drawPoint(21,9)
+        painter.drawPoint(14,15)
+
+class BtnOpen(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnOpen, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnOpen, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('openIcon2.png'))
+            self.setIconSize(QSize(40,40))
+        else:
+            self.setIcon(QIcon('openIcon.png'))
+            self.setIconSize(QSize(40,40))
+
+class BtnCrop(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnCrop, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnCrop, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('cropIcon2.png'))
+            self.setIconSize(QSize(70,70))
+        else:
+            self.setIcon(QIcon('cropIcon1.png'))
+            self.setIconSize(QSize(40,40))
+
+class BtnRecognition(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnRecognition, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnRecognition, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('recognitionIcon1.png'))
+            self.setIconSize(QSize(50,50))
+        else:
+            self.setIcon(QIcon('recognitionIcon2.png'))
+            self.setIconSize(QSize(40,40))
+
+class ImageViewer(QMainWindow):
+    """docstring for ImageViewer"""
+    def __init__(self, parent):
+        super(ImageViewer, self).__init__(parent)
+        # self.m_DragPosition=self.pos()
+        # self.m_drag = False
+        self.resize(600, 500)
+        # self.label = QExampleLabel(self)
+        # self.label.setGeometry(10,10,400,300)
+        self.appLayout = QHBoxLayout()
+        self.ui = QExampleLabel(self)
+        self.appLayout.addWidget(self.ui)
+
+        self.setLayout(self.appLayout)
+
+        # self.show()
+        
+
+class MainWindow(QWidget):
+    def __init__(self):
+
+        QWidget.__init__(self)
+
+        # initial position
+        self.m_DragPosition=self.pos()
+        self.m_drag = False
+        
+        self.resize(WIDTH,665)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setMouseTracking(True)
+        self.setStyleSheet("QWidget{background-color:#2C3E50;}")
+        
+#        self.setWindowTitle()
+#        self.setWindowIcon(QtGui.QIcon())
+
+        qlbl_title = QLabel("Optical character recognition", self)
+        qlbl_title.setGeometry(0,0,WIDTH,30)
+        qlbl_title.setStyleSheet("QLabel{background-color:#4a93ca;"
+                                        "border:none;"
+                                        "color:#ffffff;"
+                                        "font:bold;"
+                                        "font-size:16px;"
+                                        "font-family:Meiryo UI;"
+                                        "qproperty-alignment:AlignCenter;}")
+
+        qlbl_title2 = QLabel("", self)
+        qlbl_title2.setGeometry(0,450,WIDTH,70)
+        qlbl_title2.setStyleSheet("QLabel{background-color:#3BAFDA;"
+                                        "border:none;"
+                                        "color:#ffffff;"
+                                        "font:bold;"
+                                        "font-size:16px;"
+                                        "font-family:Meiryo UI;"
+                                        "qproperty-alignment:AlignCenter;}")
+        
+        self.qbtn_minimize=BtnMinimize(self)
+        self.qbtn_minimize.setGeometry(WIDTH-70,0,28,24)
+        self.qbtn_minimize.setStyleSheet("QPushButton{background-color:#4a93ca;"
+                                                      "border:none;"
+#                                                      "color:#000000;"
+                                                      "font-size:12px;"
+                                                      "font-family:Tahoma;}"
+                                        "QPushButton:hover{background-color:#295e87;}"
+                                        "QPushButton:pressed{background-color:#204a6a;}")
+        
+        self.qbtn_close=BtnClose(self)
+        self.qbtn_close.setGeometry(WIDTH-35,0,36,24)
+        self.qbtn_close.setStyleSheet("QPushButton{background-color:#4a93ca;"
+                                                  "border:none;"
+#                                                  "color:#ffffff;"
+                                                  "font-size:12px;"
+                                                  "font-family:Tahoma;}"
+                                      "QPushButton:hover{background-color:#ea5e00;}"
+                                      "QPushButton:pressed{background-color:#994005;}")
+
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(22, 70, 710, 381))
+        self.label.setStyleSheet("background-color: rgb(255, 251, 124);")
+        self.label.setObjectName("label")
+        self.label.setAlignment(Qt.AlignCenter)
+        pixmap = QPixmap(FILENAME)
+        self.label.setScaledContents(True)
+        self.label.setPixmap(pixmap)
+
+        self.label_2 = QtWidgets.QLabel(self)
+        self.label_2.setGeometry(QtCore.QRect(40, 550, 200, 80))
+        self.label_2.setStyleSheet("background-color: rgb(255, 251, 124);")
+        self.label_2.setObjectName("label")
+        self.label_2.setAlignment(Qt.AlignCenter)
+
+        self.qbtn_open = BtnOpen(self)
+        self.qbtn_open.setGeometry(150,455,60,60)
+        self.qbtn_open.setStyleSheet("QPushButton{background-color:#4a93ca;"
+                                                  "border:none;"
+#                                                  "color:#ffffff;"
+                                                  "font-size:12px;"
+                                                  "font-family:Tahoma;}"
+                                      "QPushButton:hover{background-color:#295e87;}"
+                                      "QPushButton:pressed{background-color:#204a6a;}")
+
+        self.qbtn_crop = BtnCrop(self)
+        self.qbtn_crop.setGeometry(340,455,60,60)
+        self.qbtn_crop.setStyleSheet("QPushButton{background-color:#4a93ca;"
+                                                  "border:none;"
+#                                                  "color:#ffffff;"
+                                                  "font-size:12px;"
+                                                  "font-family:Tahoma;}"
+                                      "QPushButton:hover{background-color:#295e87;}"
+                                      "QPushButton:pressed{background-color:#204a6a;}")
+
+        self.qbtn_recognition = BtnRecognition(self)
+        self.qbtn_recognition.setGeometry(530,455,60,60)
+        self.qbtn_recognition.setStyleSheet("QPushButton{background-color:#4a93ca;"
+                                                  "border:none;"
+#                                                  "color:#ffffff;"
+                                                  "font-size:12px;"
+                                                  "font-family:Tahoma;}"
+                                      "QPushButton:hover{background-color:#295e87;}"
+                                      "QPushButton:pressed{background-color:#204a6a;}")        
+
+        self.qbtn_minimize.clicked.connect(self.btnClicked_minimize)
+        self.qbtn_close.clicked.connect(self.btnClicked_close)
+        self.qbtn_open.clicked.connect(self.openFile)
+        self.qbtn_crop.clicked.connect(self.openWindow)
+
+        self.ImageViewer = ImageViewer(self)
+
+
+    # reload method to support window draging
+    def mousePressEvent(self, event):
+        if event.button()==Qt.LeftButton:
+            self.m_drag=True
+            self.m_DragPosition=event.globalPos()-self.pos()
+            event.accept()
+
+    def mouseMoveEvent(self, QMouseEvent):
+        if QMouseEvent.buttons() and Qt.LeftButton and self.m_drag:
+            self.move(QMouseEvent.globalPos()-self.m_DragPosition)
+            QMouseEvent.accept()
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.m_drag=False
+
+    def btnClicked_minimize(self):
+        self.showMinimized()
+
+    def btnClicked_close(self):
+        os._exit(0)
+
+    def openFile(self):
+        if QT_VERSION_STR[0] == '4':
+            fileName2 = QFileDialog.getOpenFileName(None, "Open image file...")
+        elif QT_VERSION_STR[0] == '5':
+            fileName2, dummy = QFileDialog.getOpenFileName(None, "Open image file...")
+
+        FILENAME = fileName2
+        pixmap = QPixmap(FILENAME)
+        self.label.setScaledContents(True)
+        self.label.setPixmap(pixmap)
+
+        image = QImage(FILENAME)
+        self.graphicsView.setImage(image)
+
+    def openWindow(self):
+
+        self.ImageViewer.show()
+        # self.imageView.show()
+
+        # layout = QHBoxLayout()
+        # self.QtImageViewer = QtImageViewer(parent=self)
+        # layout.addWidget(self.QtImageViewer)
+        # self.setLayout(layout)
+        
+        # self.show()
+        
+        # QtTest.QTest.qWait(4000)
+
+        # pixmap = QPixmap('capture.png')
+        # self.label_2.setScaledContents(True)
+        # self.label_2.setPixmap(pixmap)
+
+
+
+if __name__=="__main__":
+    mapp=QtGui.QApplication(sys.argv)
+    mw=MainWindow()
+    mw.show()
+    sys.exit(mapp.exec_())
