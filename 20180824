@@ -11,12 +11,13 @@ import tkinter as tk
 from functools import partial
 import Final_test_tensorflow_2 as ttf 
 
-FILENAME = "test_22.PNG"
+FILENAME = "Scan/scan (1).png"
 DETECT_RESULT = "result/test.png"
 
 root = tk.Tk()
 SCEEN_WIDTH = root.winfo_screenwidth()
 SCEEN_HEIGHT = root.winfo_screenheight()
+
 WIDTH = 754
 HEIGHT = 830
 HEADER_HEIGHT = 50
@@ -27,28 +28,58 @@ SCAN_Y = 70
 TOOLBAR_HEIGHT = 80
 TOOLBAR_Y = 450
 BUTTON_SIZE = 60
+BUTTON_Y = 460
 BUTTON_ZOOM_SIZE = 70
 BUTTON2_SIZE = 100
 BUTTON_HOVER_SIZE = 70
 BUTTON2_HOVER_SIZE = 120
-BUTTON2_Y = 545
-BUTTON2_HOVER_Y = 555
+BUTTON2_X = 320
+BUTTON2_Y = 555
+BUTTON2_HOVER_X = 310
+BUTTON2_HOVER_Y = 545
 FRAME_WIDTH = 200
 FRAME_HEIGHT = 80
-FRAME_X = 0
+FRAME_X = 40
 FRAME_Y = 565
+RESULT_FRAME_X = 520
 OPEN_X = 150
+OPEN_HOVER_X = 145
+OPEN_X = 150
+OPEN_HOVER_X = 145
+CROP_X = 340
+CROP_HOVER_X = 335
+OPTION_X = 530
+OPTION_HOVER_X = 525
 BUTTON_MARGIN = 190
-BUTTON_Y = 460
 BUTTON_HOVER_Y = 455
 PREDICT_LABEL_WIDTH = 90
 PREDICT_LABEL_HEIGHT = 20
-DELETE_BUTTON_Y = 
+ICON_SIZE = 40
+MINIMIZE_X = 684
+CLOSE_X = 719
+
+IMAGEVIEWER_WIDTH = 1268
+IMAGEVIEWER_HEIGHT = 896
+DELETE_BUTTON_Y = 555
+DELETE_BUTTON_X = 230
+DELETE_BUTTON_SIZE = 20
+DELETE_BUTTON_HOVE_SIZE = 24
+FRAME_MARGIN = 85
+CHECK_ICON_X = 705
+CHECK_ICON_Y = 550
+CHECK_ICON_SIZE = 40
+
+COLOR_X = 300
+COLOR_Y = 670
+COLOR_WIDTH = 150 
+COLOR_HEIGHT = 40
 
 
 if(SCEEN_HEIGHT < 900):
+    WIDTH = 538
     HEIGHT = 592
     HEADER_HEIGHT = 36
+    SCAN_WIDTH = 508
     SCAN_HEIGHT = 272
     TOOLBAR_HEIGHT = 58
     TOOLBAR_Y = 322
@@ -58,28 +89,44 @@ if(SCEEN_HEIGHT < 900):
     BUTTON_HOVER_Y = 325
     BUTTON_SIZE = 42
     BUTTON_ZOOM_SIZE = 50
-    BUTTON2_Y = 388
-    BUTTON2_HOVER_Y = 396
+    BUTTON2_Y = 396
+    BUTTON2_HOVER_Y = 388
+    BUTTON2_X = 228
+    BUTTON2_HOVER_X = 221
+    BUTTON2_SIZE = 72
+    BUTTON2_HOVER_SIZE = 86
     FRAME_HEIGHT = 58
+    FRAME_WIDTH = 142
+    FRAME_X = 28
     FRAME_Y = 404
-# WIDTH2 = 538
-# HEIGHT2 = 592
-# HEADER_HEIGHT2 = 36
-# SCAN_HEIGHT2 = 272
-# SCAN_WIDTH2 = 506
-# TOOLBAR_HEIGHT2 = 56
-# TOOLBAR_MARGIN2 = 320
-# BUTTON_SIZE2 = 42
-# BUTTON2_SIZE2 = 70
-# BUTTON_HOVER_SIZE2 = 50
-# BUTTON2_HOVER_SIZE2 = 86
-# FRAME_WIDTH2 = 142
-# FRAME_HEIGHT2 = 56
-# OPEN_LEFT_MARGIN2 = 108
-# BUTTON_MARGIN2 = 136
-# BUTTON_UP_MARGIN2 = 328
-# PREDICT_LABEL_WIDTH2 = 64
-# PREDICT_LABEL_HEIGHT2 = 14
+    RESULT_FRAME_X = 370
+    ICON_SIZE = 28
+    MINIMIZE_X = 488
+    CLOSE_X = 514
+
+    IMAGEVIEWER_WIDTH = 906
+    IMAGEVIEWER_HEIGHT = 640
+    DELETE_BUTTON_Y = 396
+    DELETE_BUTTON_X = 164
+    DELETE_BUTTON_SIZE = 14
+    DELETE_BUTTON_HOVER_SIZE = 18
+    FRAME_MARGIN = 61
+    CHECK_ICON_X = 504
+    CHECK_ICON_Y = 392
+    CHECK_ICON_SIZE = 28
+    OPEN_X = 107
+    OPEN_HOVER_X = 104
+    CROP_X = 243
+    CROP_HOVER_X = 239
+    OPTION_X = 378
+    OPTION_HOVER_X = 375
+    BUTTON_MARGIN = 136
+
+    PREDICT_LABEL_WIDTH = 64
+    COLOR_X = 214
+    COLOR_Y = 478
+    COLOR_WIDTH = 107
+    COLOR_HEIGHT = 28
 
 class ResultFrame(QFrame):
     """docstring for ClassName"""
@@ -99,25 +146,25 @@ class ResultFrame(QFrame):
 
         result_label = QLabel(self)
         result_label.setText('Result: ')
-        result_label.setStyleSheet("font: 12pt \"MS UI Gothic\";")
+        result_label.setStyleSheet("font: 10pt \"MS UI Gothic\";")
         result_label.setGeometry(10, 10, FRAME_HEIGHT, PREDICT_LABEL_HEIGHT)
         result_label.show()
 
         self.result2_label = QLabel(self)
         self.result2_label.setText('Accuracy: ')
-        self.result2_label.setStyleSheet("font: 12pt \"MS UI Gothic\";")
+        self.result2_label.setStyleSheet("font: 10pt \"MS UI Gothic\";")
         self.result2_label.setGeometry(10, 35, FRAME_HEIGHT, PREDICT_LABEL_HEIGHT)
         self.result2_label.show()
 
         self.predict_label = QLabel(self)
         # self.predict_label.setText('98,14')
-        self.predict_label.setStyleSheet("font: 12pt \"MS UI Gothic\";")
+        self.predict_label.setStyleSheet("font: 10pt \"MS UI Gothic\";")
         self.predict_label.setGeometry(PREDICT_LABEL_WIDTH, 10, PREDICT_LABEL_WIDTH, PREDICT_LABEL_HEIGHT)
         self.predict_label.show()
 
         self.accuracy_label = QLabel(self)
         # self.accuracy_label.setText('98%')
-        self.accuracy_label.setStyleSheet("font: 12pt \"MS UI Gothic\";")
+        self.accuracy_label.setStyleSheet("font: 10pt \"MS UI Gothic\";")
         self.accuracy_label.setGeometry(PREDICT_LABEL_WIDTH, 35, PREDICT_LABEL_WIDTH, PREDICT_LABEL_HEIGHT)
         self.accuracy_label.show()
         
@@ -125,6 +172,7 @@ class QExampleLabel(QLabel):
     def __init__(self, parent):
         super(QExampleLabel, self).__init__(parent)
         self.parent = parent
+        self.ZOOM_RATIO = 1
         self.initUI()
 
     def initUI (self):
@@ -132,10 +180,12 @@ class QExampleLabel(QLabel):
         heightImg, widthImg = img.shape[:2]
         self.setAlignment(Qt.AlignCenter)
         self.setScaledContents(True)
-        self.setPixmap(QPixmap(FILENAME))
+        pixmap = QPixmap(FILENAME)
+        self.setPixmap(pixmap)
+        print(heightImg, widthImg)
 
-        self.resize(widthImg, heightImg)
-        
+        self.ZOOM_RATIO = float("{0:.2f}".format(widthImg/IMAGEVIEWER_WIDTH))
+        # self.resize(1268, 896)
 
     def mousePressEvent (self, eventQMouseEvent):
         self.originQPoint = eventQMouseEvent.pos()
@@ -148,15 +198,16 @@ class QExampleLabel(QLabel):
 
     def mouseReleaseEvent (self, eventQMouseEvent):
 
-        self.parent.parent.COUNT = self.parent.parent.COUNT + 1
-        outName = 'output' + str(self.parent.parent.COUNT) + '.png'
         labelList = [1, 2, 3]
-        # labelName = 'imageCrop_' + str(self.parent.COUNT)
-
         self.currentQRubberBand.hide()
         currentQRect = self.currentQRubberBand.geometry()
+        # print(currentQRect)
+        currentQRect = QRect(int(currentQRect.x()*self.ZOOM_RATIO), int(currentQRect.y()*self.ZOOM_RATIO), int(currentQRect.width()*self.ZOOM_RATIO), int(currentQRect.height()*self.ZOOM_RATIO))
+        print(currentQRect)
         self.currentQRubberBand.deleteLater()
-        if self.parent.parent.COUNT < 4:
+        if self.parent.parent.COUNT < 3:
+            self.parent.parent.COUNT = self.parent.parent.COUNT + 1
+            outName = 'output' + str(self.parent.parent.COUNT) + '.png'
             cropQPixmap = self.pixmap().copy(currentQRect)
             cropQPixmap.save(outName)
             self.parent.parent.addImage()
@@ -165,9 +216,6 @@ class QExampleLabel(QLabel):
             self.parent.parent.labelName1[self.parent.parent.COUNT-1].setPixmap(pixmap)
         else: 
             print('full')
-        # self.parent.labelName.setScaledContents(True)
-        # self.parent.labelName.setPixmap(pixmap)
-    
         self.parent.close()
 
 class ImageViewer(QMainWindow):
@@ -179,14 +227,17 @@ class ImageViewer(QMainWindow):
         # self.m_drag = False
         img = cv2.imread(FILENAME, 0)
         heightImg, widthImg = img.shape[:2]
-        self.resize(widthImg, heightImg)
+        # self.resize(widthImg, heightImg)
+        
         # self.label = QExampleLabel(self)
         # self.label.setGeometry(10,10,400,300)
         self.appLayout = QHBoxLayout()
         self.ui = QExampleLabel(self)
+        self.ui.resize(IMAGEVIEWER_WIDTH, IMAGEVIEWER_HEIGHT)
         self.appLayout.addWidget(self.ui)
 
         self.setLayout(self.appLayout)
+        self.resize(IMAGEVIEWER_WIDTH, IMAGEVIEWER_HEIGHT)
 
 class BtnTitlebar(QPushButton):
     def __init__(self, *args, **kwargs):
@@ -246,22 +297,14 @@ class BtnOpen(BtnTitlebar):
         painter = QtGui.QPainter(self)
         if self.isDown() or self.isHover():
             self.setIcon(QIcon('Icon/openIcon2.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON_ZOOM_SIZE,BUTTON_ZOOM_SIZE)
-            self.move(145,BUTTON_HOVER_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(28,28))
-            #     self.resize(49,49)
-            #     self.move(104,325)
+            self.move(OPEN_HOVER_X,BUTTON_HOVER_Y)
         else:
             self.setIcon(QIcon('Icon/openIcon.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON_SIZE,BUTTON_SIZE)
-            self.move(150,BUTTON_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(28,28))
-            #     self.resize(42,42)
-            #     self.move(108,328)
+            self.move(OPEN_X,BUTTON_Y)
 
 class BtnCrop(BtnTitlebar):
     def __init__(self, *args, **kwargs):
@@ -274,20 +317,12 @@ class BtnCrop(BtnTitlebar):
             self.setIcon(QIcon('Icon/cropIcon2.png'))
             self.setIconSize(QSize(BUTTON_ZOOM_SIZE,BUTTON_ZOOM_SIZE))
             self.resize(BUTTON_ZOOM_SIZE,BUTTON_ZOOM_SIZE)
-            self.move(335,BUTTON_HOVER_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(49,49))
-            #     self.resize(49,49)
-            #     self.move(240,455)
+            self.move(CROP_HOVER_X,BUTTON_HOVER_Y)
         else:
             self.setIcon(QIcon('Icon/cropIcon1.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON_SIZE,BUTTON_SIZE)
-            self.move(340,BUTTON_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(28,28))
-            #     self.resize(42,42)
-            #     self.move(242,328)
+            self.move(CROP_X,BUTTON_Y)
 
 class BtnDelete(BtnTitlebar):
     def __init__(self, *args, **kwargs):
@@ -298,53 +333,32 @@ class BtnDelete(BtnTitlebar):
         # painter = QtGui.QPainter(self)
         self.setIcon(QIcon('Icon/deleteIcon.png'))
         if self.isDown() or self.isHover():
-            self.setIconSize(QSize(24,24))
-            self.resize(24,24)
-            # self.move(222, 85*(self.parent.COUNT-1)+547)
+            self.setIconSize(QSize(DELETE_BUTTON_HOVER_SIZE,DELETE_BUTTON_HOVER_SIZE))
+            self.resize(DELETE_BUTTON_HOVER_SIZE,DELETE_BUTTON_HOVER_SIZE)
             self.setStyleSheet("QPushButton{background-color:#000000;"
                                                   "border:none;"
-                                                  "border-radius:12px;}")
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(18,18))
-            #     self.resize(18,18)
-            #     self.setStyleSheet("QPushButton{background-color:#000000;"
-            #                                       "border:none;"
-            #                                       "border-radius:9px;}")
+                                                  "border-radius:"+str(DELETE_BUTTON_HOVER_SIZE/2)+"px;}")
+        
         else:
-            self.setIconSize(QSize(20,20))
-            self.resize(20,20)
-            # self.move(225,85*(self.parent.COUNT-1)+550)
+            self.setIconSize(QSize(DELETE_BUTTON_SIZE,DELETE_BUTTON_SIZE))
+            self.resize(DELETE_BUTTON_SIZE,DELETE_BUTTON_SIZE)
             self.setStyleSheet("QPushButton{background-color:#ffffff;"
                                                   "border:none;"
-                                                  "border-radius:10px;}")
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(14,14))
-            #     self.resize(14,14)
-            # # self.move(225,85*(self.parent.COUNT-1)+550)
-            #     self.setStyleSheet("QPushButton{background-color:#ffffff;"
-            #                                       "border:none;"
-            #                                       "border-radius:7px;}")
-
+                                                  "border-radius:"+str(DELETE_BUTTON_SIZE/2)+"px;}")
+         
 class BtnCheck(BtnTitlebar):
     def __init__(self, *args, **kwargs):
         super(BtnCheck, self).__init__(*args, **kwargs)
         
     def paintEvent(self, evt):
         super(BtnCheck, self).paintEvent(evt)
-        self.setIconSize(QSize(40,40))
-        self.resize(40,40)
+        self.setIconSize(QSize(CHECK_ICON_SIZE,CHECK_ICON_SIZE))
+        self.resize(CHECK_ICON_SIZE,CHECK_ICON_SIZE)
             # self.move(222, 85*(self.parent.COUNT-1)+547)
         self.setStyleSheet("QPushButton{background-color:#000000;"
                                             "border:none;"
-                                            "border-radius:20px;}")
-        # if(SCEEN_HEIGHT < 900):
-        #     self.setIconSize(QSize(28,28))
-        #     self.resize(28,28)
-        #     # self.move(222, 85*(self.parent.COUNT-1)+547)
-        #     self.setStyleSheet("QPushButton{background-color:#000000;"
-        #                                     "border:none;"
-        #                                     "border-radius:14px;}")
-
+                                            "border-radius:"+str(CHECK_ICON_SIZE/2)+"px;}")
+     
 class BtnOption(BtnTitlebar):
     def __init__(self, *args, **kwargs):
         super(BtnOption, self).__init__(*args, **kwargs)
@@ -354,22 +368,14 @@ class BtnOption(BtnTitlebar):
         painter = QtGui.QPainter(self)
         if self.isDown() or self.isHover():
             self.setIcon(QIcon('Icon/recognitionIcon1.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON_ZOOM_SIZE,BUTTON_ZOOM_SIZE)
-            self.move(525,BUTTON_HOVER_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(35,35))
-            #     self.resize(49,49)
-            #     self.move(375,325)
+            self.move(OPTION_HOVER_X,BUTTON_HOVER_Y)
         else:
             self.setIcon(QIcon('Icon/recognitionIcon2.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON_SIZE,BUTTON_SIZE)
-            self.move(530,BUTTON_Y)
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(28,28))
-            #     self.resize(42,42)
-            #     self.move(378,328)
+            self.move(OPTION_X,BUTTON_Y)
 
 class BtnPredict(BtnTitlebar):
     def __init__(self, *args, **kwargs):
@@ -381,38 +387,23 @@ class BtnPredict(BtnTitlebar):
         if self.isDown() or self.isHover():
             self.setIcon(QIcon('Icon/eyeIcon2.png'))
             self.setIconSize(QSize(70,70))
-            self.resize(BUTTON2_SIZE*1.2,BUTTON2_SIZE*1.2)
-            self.move(310,BUTTON2_Y)
+            self.resize(BUTTON2_HOVER_SIZE, BUTTON2_HOVER_SIZE)
+            self.move(BUTTON2_HOVER_X, BUTTON2_HOVER_Y)
             self.setStyleSheet("QPushButton{background-color:#295e87;"
                                                   "border:none;"
                                                   "font-size:12px;"
-                                                  "border-radius:60px;}")
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(49,49))
-            #     self.resize(BUTTON2_SIZE2*1.2,BUTTON2_SIZE2*1.2)
-            #     self.move(220,388)
-            #     self.setStyleSheet("QPushButton{background-color:#295e87;"
-            #                                       "border:none;"
-            #                                       "font-size:12px;"
-            #                                       "border-radius:42px;}")
+                                                  "border-radius:"+str(BUTTON2_HOVER_SIZE/2)+";}")
+            
         else:
             self.setIcon(QIcon('Icon/eyeIcon1.png'))
-            self.setIconSize(QSize(40,40))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
             self.resize(BUTTON2_SIZE,BUTTON2_SIZE)
-            self.move(320,BUTTON2_HOVER_Y)
+            self.move(BUTTON2_X,BUTTON2_Y)
             self.setStyleSheet("QPushButton{background-color:#295e87;"
                                                   "border:none;"
                                                   "font-size:12px;"
-                                                  "border-radius:50px;}")
-            # if(SCEEN_HEIGHT < 900):
-            #     self.setIconSize(QSize(28,28))
-            #     self.resize(BUTTON2_SIZE,BUTTON2_SIZE)
-            #     self.move(288,396)
-            #     self.setStyleSheet("QPushButton{background-color:#295e87;"
-            #                                       "border:none;"
-            #                                       "font-size:12px;"
-            #                                       "border-radius:35px;}")
-
+                                                  "border-radius:"+str(BUTTON2_SIZE/2)+"px;}")
+         
 class MainWindow(QWidget):
     def __init__(self):
 
@@ -440,8 +431,6 @@ class MainWindow(QWidget):
      
         qlbl_title = QLabel("Optical character recognition", self)
         qlbl_title.setGeometry(0,0,WIDTH,HEADER_HEIGHT)
-        # if(SCEEN_HEIGHT < 900):
-        #     qlbl_title.setGeometry(0,0,int(WIDTH/1.4),int(HEADER_HEIGHT/1.4))
         qlbl_title.setStyleSheet("QLabel{background-color:#4a93ca;"
                                     "border:none;"
                                     "color:#ffffff;"
@@ -452,8 +441,6 @@ class MainWindow(QWidget):
 
         qlbl_title2 = QLabel("", self)
         qlbl_title2.setGeometry(0,TOOLBAR_Y,WIDTH,TOOLBAR_HEIGHT)
-        # if(SCEEN_HEIGHT < 900):
-        #     qlbl_title.setGeometry(0,int(TOOLBAR_Y/1.4), int(WIDTH/1.4), int(TOOLBAR_HEIGHT/1.4))
         qlbl_title2.setStyleSheet("QLabel{background-color:#3BAFDA;"
                                     "border:none;"
                                     "color:#ffffff;"
@@ -463,9 +450,7 @@ class MainWindow(QWidget):
                                     "qproperty-alignment:AlignCenter;}")
         
         self.color_label = QLabel("", self)
-        self.color_label.setGeometry(300, 670, 150, 40)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.color_label.setGeometry(int(300/1.4), int(670/1.4), int(150/1.4), int(40/1.4))
+        self.color_label.setGeometry(COLOR_X, COLOR_Y, COLOR_WIDTH, COLOR_HEIGHT)
         self.color_label.setAlignment(Qt.AlignCenter)
         color_pixmap = QPixmap('Icon/color.PNG')
         self.color_label.setScaledContents(True)
@@ -473,9 +458,7 @@ class MainWindow(QWidget):
 
 
         self.qbtn_minimize=BtnMinimize(self)
-        self.qbtn_minimize.setGeometry(WIDTH-70,0,28,24)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_minimize.setGeometry(WIDTH2-49,0,20,18)
+        self.qbtn_minimize.setGeometry(MINIMIZE_X,0,28,24)
         self.qbtn_minimize.setStyleSheet("QPushButton{background-color:#4a93ca;"
                                             "border:none;"
                                             "font-size:12px;"
@@ -484,9 +467,7 @@ class MainWindow(QWidget):
                                             "QPushButton:pressed{background-color:#204a6a;}")
         
         self.qbtn_close=BtnClose(self)
-        self.qbtn_close.setGeometry(WIDTH-35,0,36,24)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_close.setGeometry(WIDTH2-25,0,26,18)
+        self.qbtn_close.setGeometry(CLOSE_X,0,36,24)
         self.qbtn_close.setStyleSheet("QPushButton{background-color:#4a93ca;"
                                         "border:none;"
                                         "font-size:12px;"
@@ -496,8 +477,6 @@ class MainWindow(QWidget):
 
         self.label = QtWidgets.QLabel(self)
         self.label.setGeometry(QtCore.QRect(SCAN_X, SCAN_Y, SCAN_WIDTH, SCAN_HEIGHT))
-        # if(SCEEN_HEIGHT < 900):
-        #     self.label.setGeometry(QtCore.QRect(16, 490, SCAN_WIDTH2, SCAN_HEIGHT2))
         self.label.setStyleSheet("background-color: rgb(255, 251, 124);")
         self.label.setObjectName("label")
         self.label.setAlignment(Qt.AlignCenter)
@@ -505,16 +484,8 @@ class MainWindow(QWidget):
         self.label.setScaledContents(True)
         self.label.setPixmap(pixmap)
 
-        # self.label_2 = QtWidgets.QLabel(self)
-        # self.label_2.setGeometry(QtCore.QRect(40, 565, 200, 80))
-        # self.label_2.setStyleSheet("background-color: rgb(255, 251, 124);")
-        # self.label_2.setObjectName("label")
-        # self.label_2.setAlignment(Qt.AlignCenter)
-
         self.qbtn_open = BtnOpen(self)
         self.qbtn_open.setGeometry(OPEN_X, BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_open.setGeometry(OPEN_LEFT_MARGIN2, BUTTON_UP_MARGIN2, BUTTON_SIZE2, BUTTON_SIZE2)
         self.qbtn_open.setStyleSheet("QPushButton{background-color:#4a93ca;"
                                                   "border:none;"
                                                   "font-size:12px;"
@@ -524,8 +495,6 @@ class MainWindow(QWidget):
 
         self.qbtn_crop = BtnCrop(self)
         self.qbtn_crop.setGeometry(OPEN_X + BUTTON_MARGIN, BUTTON_Y, BUTTON_SIZE, BUTTON_SIZE)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_crop.setGeometry(OPEN_LEFT_MARGIN2 + BUTTON_MARGIN2, BUTTON_UP_MARGIN2, BUTTON_SIZE2, BUTTON_SIZE2)
         self.qbtn_crop.setStyleSheet("QPushButton{background-color:#4a93ca;"
                                                   "border:none;"
                                                   "font-size:12px;"
@@ -535,8 +504,6 @@ class MainWindow(QWidget):
 
         self.qbtn_option = BtnOption(self)
         self.qbtn_option.setGeometry(OPEN_X + BUTTON_MARGIN*2, BUTTON_Y ,BUTTON_SIZE,BUTTON_SIZE)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_option.setGeometry(OPEN_LEFT_MARGIN2 + BUTTON_MARGIN2*2, BUTTON_UP_MARGIN2 ,BUTTON_SIZE2,BUTTON_SIZE2)
         self.qbtn_option.setStyleSheet("QPushButton{background-color:#4a93ca;"
                                                   "border:none;"
                                                   "font-size:12px;"
@@ -545,9 +512,7 @@ class MainWindow(QWidget):
                                       "QPushButton:pressed{background-color:#204a6a;}")
 
         self.qbtn_predict = BtnPredict(self)
-        self.qbtn_predict.setGeometry(320,555,BUTTON2_SIZE,BUTTON2_SIZE)
-        # if(SCEEN_HEIGHT < 900):
-        #     self.qbtn_predict.setGeometry(228,396,BUTTON2_SIZE2,BUTTON2_SIZE2)
+        self.qbtn_predict.setGeometry(BUTTON2_X,BUTTON2_Y,BUTTON2_SIZE,BUTTON2_SIZE)
         self.qbtn_predict.setStyleSheet("QPushButton{background-color:#295e87;"
                                                   "border:none;"
                                                   "font-size:12px;"
@@ -568,7 +533,6 @@ class MainWindow(QWidget):
         root_width = root.winfo_screenwidth()
         root_height = root.winfo_screenheight()
         print(root_width, root_height)
-
 
     # reload method to support window draging
     def mousePressEvent(self, event):
@@ -593,19 +557,22 @@ class MainWindow(QWidget):
 
     def openFile(self):
         if QT_VERSION_STR[0] == '4':
-            fileName2 = QFileDialog.getOpenFileName(None, "Open image file...", './Scan2', "(*.PNG)")
+            fileName2 = QFileDialog.getOpenFileName(None, "Open image file...", './Scan', "(*.PNG)")
         elif QT_VERSION_STR[0] == '5':
-            fileName2, dummy = QFileDialog.getOpenFileName(None, "Open image file...", './Scan2', "(*.PNG)")
+            fileName2, dummy = QFileDialog.getOpenFileName(None, "Open image file...", './Scan', "(*.PNG)")
 
         FILENAME = fileName2
         pixmap = QPixmap(FILENAME)
+        # pixmap = pixmap.scaledToWidth(1268)
         self.label.setScaledContents(True)
         self.label.setPixmap(pixmap)
         im = cv2.imread(fileName2, 0)
         heightIm, widthIm = im.shape[:2]
         self.ImageViewer.ui.setPixmap(pixmap)
-        self.ImageViewer.ui.resize(widthIm, heightIm)
-        self.ImageViewer.resize(widthIm, heightIm)
+
+        self.ImageViewer.ui.ZOOM_RATIO = float("{0:.2f}".format(widthIm/IMAGEVIEWER_WIDTH))
+        # self.ImageViewer.ui.resize(1268, 896)
+        # self.ImageViewer.resize(1268, 896)
 
     def openWindow(self):
 
@@ -614,9 +581,7 @@ class MainWindow(QWidget):
     def addImage(self):
 
         labelName = QLabel(self)
-        labelName.setGeometry(QtCore.QRect(40, 85*(self.COUNT-1) + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
-        # if(SCEEN_HEIGHT < 900):
-        #     labelName.setGeometry(QtCore.QRect(28, 61*(self.COUNT-1) + 404, FRAME_WIDTH2, 57))
+        labelName.setGeometry(QtCore.QRect(FRAME_X, FRAME_MARGIN*(self.COUNT-1) + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
         labelName.setStyleSheet("border:4px solid rgb(0, 0, 0); background-color: rgb(255, 0, 0);")
         labelName.setAlignment(Qt.AlignCenter)
         labelName.setObjectName(str(self.COUNT))
@@ -624,13 +589,11 @@ class MainWindow(QWidget):
         
         btnDelete = BtnDelete(self)
         btnDelete.setObjectName(str(self.COUNT))
-        btnDelete.setGeometry(230, 85*(self.COUNT-1) + 555,20,20)
-        # if(SCEEN_HEIGHT < 900):
-        #     btnDelete.setGeometry(164, 61*(self.COUNT-1) + 396,14,14)
+        btnDelete.setGeometry(DELETE_BUTTON_X, FRAME_MARGIN*(self.COUNT-1) + DELETE_BUTTON_Y, DELETE_BUTTON_SIZE, DELETE_BUTTON_SIZE)
         btnDelete.setStyleSheet("QPushButton{background-color:#ffffff;"
                                                   "border:none;"
                                                   "font-size:12px;"
-                                                  "border-radius:15px;"
+                                                  "border-radius:"+str(DELETE_BUTTON_SIZE/2)+"px;"
                                                   "font-family:Tahoma;}")
         
         self.labelName1.append(labelName)
@@ -700,10 +663,8 @@ class MainWindow(QWidget):
             for i in range(posi, self.COUNT):
                 # print(i)
                 labelName = QLabel(self)
-                labelName.setGeometry(QtCore.QRect(40, 85*(i-1) + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
-                # if(SCEEN_HEIGHT < 900):
-                #     labelName.setGeometry(QtCore.QRect(28, 61*(i-1) + 404, FRAME_WIDTH2, FRAME_HEIGHT2))
-                labelName.setStyleSheet("border:4px solid rgb(79, 229, 164); background-color: rgb(255, 255, 255)")
+                labelName.setGeometry(QtCore.QRect(FRAME_X, FRAME_MARGIN*(i-1) + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
+                labelName.setStyleSheet("border:4px solid rgb(0, 0, 0); background-color: rgb(255, 255, 255)")
                 labelName.setAlignment(Qt.AlignCenter)
                 pixmap = QPixmap('output'+str(i)+'.png')
                 if(i<=len(self.resultList)):
@@ -716,20 +677,13 @@ class MainWindow(QWidget):
                 
                 btnDelete = BtnDelete(self)
                 btnDelete.setObjectName(str(i))
-                btnDelete.setGeometry(230, 85*(i-1) + FRAME_Y,20,20)
+                btnDelete.setGeometry(DELETE_BUTTON_X, FRAME_MARGIN*(i-1) + DELETE_BUTTON_Y,DELETE_BUTTON_SIZE,DELETE_BUTTON_SIZE)
                 btnDelete.setStyleSheet("QPushButton{background-color:#ffffff;"
                                                           "border:none;"
                                                           "font-size:12px;"
                                                           "border-radius:15px;"
                                                           "font-family:Tahoma;}")
-                # if(SCEEN_HEIGHT < 900):
-                #     btnDelete.setGeometry(164, 61*(i-1) + 404,14,14)
-                #     btnDelete.setStyleSheet("QPushButton{background-color:#ffffff;"
-                #                                           "border:none;"
-                #                                           "font-size:12px;"
-                #                                           "border-radius:11px;"
-                #                                           "font-family:Tahoma;}")
-                
+                 
                 self.labelName1.append(labelName)
                 self.labelName1[i-1].show()
             
@@ -745,12 +699,9 @@ class MainWindow(QWidget):
                     resultFrame.predict_label.setText(self.resultList2[i-1])
                     resultFrame.accuracy_label.setText(str(self.accList[i-1]))
                     # ResultFrame.setObjectName(str(i))
-                    resultFrame.setGeometry(QRect(520, (i-1)*85 + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
-                    # if(SCEEN_HEIGHT < 900):
-                    #     resultFrame.setGeometry(QRect(370, (i-1)*61 + 404, FRAME_WIDTH2, FRAME_HEIGHT2))
+                    resultFrame.setGeometry(QRect(RESULT_FRAME_X, (i-1)*FRAME_MARGIN + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
                     self.result_frame.append(resultFrame)
                     
-
                     checkIcon = BtnCheck(self)    
                     if self.accList[i-1] >= 98:
                         checkIcon.setIcon(QIcon('Icon/checkIcon.png'))
@@ -762,14 +713,10 @@ class MainWindow(QWidget):
                         checkIcon.setIcon(QIcon('Icon/checkIcon3.png'))
                         self.result_frame[i-1].setStyleSheet("border:2px solid rgb(243, 1, 16); background-color: rgb(255, 255, 255)")
 
-                    checkIcon.setGeometry(QRect(705, (i-1)*85 + 550, 40, 40))
-                    # if(SCEEN_HEIGHT < 900):
-                    #     checkIcon.setGeometry(QRect(504, (i-1)*61 + 393, 28, 28))
+                    checkIcon.setGeometry(QRect(CHECK_ICON_X, (i-1)*FRAME_MARGIN + FRAME_Y, ICON_SIZE, ICON_SIZE))
                     self.checkList.append(checkIcon)
                     self.result_frame[i-1].show()
                     self.checkList[i-1].show()
-
-
 
         self.COUNT = self.COUNT - 1
 
@@ -782,7 +729,6 @@ class MainWindow(QWidget):
         for i in range(posi, self.COUNT):  
             os.rename('output' + str(i+1) + '.png', 'output' + str(i) + '.png')
  
-
     def predict(self):
         # print(self.COUNT) 
         if(self.COUNT > 0):
@@ -843,9 +789,7 @@ class MainWindow(QWidget):
                     self.accList.append(acc)
                     resultFrame = ResultFrame(self)
                     # ResultFrame.setObjectName(str(i))
-                    resultFrame.setGeometry(QRect(520, (i-1)*85 + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
-                    # if(SCEEN_HEIGHT < 900):
-                    #     resultFrame.setGeometry(QRect(372, (i-1)*61 + 404, FRAME_WIDTH2, FRAME_HEIGHT2))
+                    resultFrame.setGeometry(QRect(RESULT_FRAME_X, (i-1)*FRAME_MARGIN + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
                     resultFrame.predict_label.setText(text_temp)
                     resultFrame.accuracy_label.setText(str(acc))
                     self.result_frame.append(resultFrame)
@@ -861,7 +805,7 @@ class MainWindow(QWidget):
                     if self.accList[i-1] < 90:
                         checkIcon.setIcon(QIcon('Icon/checkIcon3.png'))
                         self.result_frame[i-1].setStyleSheet("border:4px solid rgb(243, 1, 16); background-color: rgb(255, 255, 255)")
-                    checkIcon.setGeometry(QRect(705, (i-1)*85 + 550, 40, 40))
+                    checkIcon.setGeometry(QRect(CHECK_ICON_X, (i-1)*FRAME_MARGIN + CHECK_ICON_Y, CHECK_ICON_SIZE, CHECK_ICON_SIZE))
                     self.checkList.append(checkIcon)
                     self.result_frame[i-1].show() 
                     self.checkList[i-1].show()
@@ -878,9 +822,7 @@ class MainWindow(QWidget):
                     self.accList.append(0)
                     resultFrame = ResultFrame(self)
                     # ResultFrame.setObjectName(str(i))
-                    resultFrame.setGeometry(QRect(520, (i-1)*85 + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
-                    # if(SCEEN_HEIGHT < 900):
-                    #     resultFrame.setGeometry(QRect(372, (i-1)*61 + 404, FRAME_WIDTH2, FRAME_HEIGHT2))
+                    resultFrame.setGeometry(QRect(RESULT_FRAME_X, (i-1)*FRAME_MARGIN + FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT))
                     resultFrame.predict_label.setText("")
                     resultFrame.accuracy_label.setText(str(""))
                     self.result_frame.append(resultFrame)
@@ -891,7 +833,7 @@ class MainWindow(QWidget):
                     checkIcon.setIcon(QIcon('Icon/checkIcon3.png'))
                     self.result_frame[i-1].setStyleSheet("border:4px solid rgb(243, 1, 16); background-color: rgb(255, 255, 255)")
                     
-                    checkIcon.setGeometry(QRect(705, (i-1)*85 + 550, 40, 40))
+                    checkIcon.setGeometry(QRect(CHECK_ICON_X, (i-1)*FRAME_MARGIN + CHECK_ICON_Y, CHECK_ICON_SIZE, CHECK_ICON_SIZE))
                     self.checkList.append(checkIcon)
                     self.result_frame[i-1].show() 
                     self.checkList[i-1].show()
@@ -915,4 +857,4 @@ if __name__=="__main__":
     mapp=QtGui.QApplication(sys.argv)
     mw=MainWindow()
     mw.show()
-    sys.exit(mapp.exec_())
+    sys.exit(app.exec_())
