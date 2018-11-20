@@ -1,0 +1,183 @@
+import sys, os, io
+import ntpath
+import cv2
+import numpy as np
+import glob
+from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
+from PyQt5.QtCore import Qt, QSize, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
+from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QApplication, QAction, QFrame, QMainWindow, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
+from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter
+
+FILENAME = "Scan/1.png"
+
+IMAGEVIEWER_WIDTH = 480
+IMAGEVIEWER_HEIGHT = 320
+COLOR_RUBBER = [Qt.red, Qt.blue, Qt.green, Qt.yellow, Qt.gray]
+
+
+def onclick(event):
+    global clicks
+    clicks.append(event.xdata)
+
+class image_label(QLabel):
+    clicked=pyqtSignal()
+    def __init__(self, parent=None):
+        QLabel.__init__(self, parent)
+
+    def mousePressEvent(self, ev):
+        self.
+
+class cropArea(QScrollArea):
+    def __init__(self, parent):
+        super(cropArea, self).__init__(parent)
+        widget = QWidget()
+        self.parent = parent
+        self.layout = QVBoxLayout(widget)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.itemList = []
+        
+        self.setWidget(widget)
+        self.setWidgetResizable(True)
+
+        self.initUI()
+
+    def initUI(self):
+        i = 0
+        for file in glob.glob("Scan/*.png"):
+            self.itemList.append(file)
+            self.addImage(str(file), i)
+
+    def addImage(self, filename, count):
+
+        ImageFrame = QFrame()
+        labelName = QLabel(ImageFrame)
+        ImageFrame.setFixedSize(240, 80)
+        labelName.setGeometry(QRect(0, 85*(count), 200, 80))
+        labelName.setStyleSheet("border:4px solid rgb(0, 0, 0); background-color: rgb(255, 255, 255);")
+        labelName.setAlignment(Qt.AlignCenter)
+        pixmap = QPixmap(filename)
+        pixmap = pixmap.scaled(200, 80, Qt.KeepAspectRatio)      
+ 
+        labelName.setPixmap(pixmap)
+        self.itemList.append(ImageFrame)
+        self.layout.addWidget(self.itemList[count-1],3)
+
+class ImageViewer(QWidget):
+    def __init__(self, parent):
+        super(ImageViewer, self).__init__(parent)
+        self.parent = parent
+        img = cv2.imread(FILENAME, 0)
+        heightImg, widthImg = img.shape[:2]
+
+        ratio = float("{0:.2f}".format(heightImg/IMAGEVIEWER_HEIGHT))
+        self.appLayout = QHBoxLayout()
+        self.ui = QExampleLabel(self)
+        self.ui.resize(int(widthImg/ratio), IMAGEVIEWER_HEIGHT)
+        print("image " + str(int(widthImg/ratio)) + str(IMAGEVIEWER_HEIGHT))
+        self.appLayout.addWidget(self.ui)
+
+        self.setLayout(self.appLayout)
+        self.resize(int(widthImg/ratio), IMAGEVIEWER_HEIGHT)
+
+    def closeEvent(self, event):
+        self.ui.close()
+
+class ApplicationWindow(QWidget):
+    def __init__(self):
+
+        QWidget.__init__(self)
+        self.m_DragPosition=self.pos()
+        self.m_drag = False
+        self.resize(980,800)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setMouseTracking(True)
+        self.setStyleSheet("QWidget{background-color:#2C3E50;}")
+
+        self._title = 'OCR'
+        self.setWindowTitle(self._title)
+
+        # self.setCentralWidget(self._main)
+
+        qlbl_title = QLabel("Optical character recognition", self)
+        qlbl_title.setGeometry(0,0,980,100)
+        qlbl_title.setStyleSheet("QLabel{background-color:#4a93ca;"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+
+        self.other_widget = QLabel("Optical Character Recognition", 
+            font=QFont("Times", 20, QtGui.QFont.Bold), 
+            alignment=QtCore.Qt.AlignCenter)
+
+        self.scan_widget = cropArea(self)
+
+        self.image_view = QWidget(self)
+        self.image_view.resize(680,520)
+        self.label = QtWidgets.QLabel(self.image_view)
+        self.label.setGeometry(QtCore.QRect(5, 5, 640, 480))
+        self.label.setStyleSheet("background-color: rgb(255, 0, 0);")
+        self.label.setObjectName("label")
+        self.label.setAlignment(Qt.AlignCenter)
+        pixmap = QPixmap(FILENAME)
+        self.label.setScaledContents(True)
+        self.label.setPixmap(pixmap)
+        print(self.label.width(), self.label.height())
+
+        # layouts
+
+        self.layout = QtWidgets.QGridLayout(self)
+        self.layout.addWidget(self.other_widget, 0, 0, 1, 2)
+        self.layout.addWidget(self.image_view, 1, 1)
+        self.layout.addWidget(self.scan_widget, 1, 0)
+
+        self.layout.setColumnStretch(0, 2)
+        self.layout.setColumnStretch(1, 5)
+        self.layout.setRowStretch(0, 1)
+        self.layout.setRowStretch(1, 8)
+
+        self.content_widget = QWidget(self)
+        self.content_widget.setLayout(self.layout)
+        self.content_widget.setGeometry(QRect(5, 110, 970, 600))
+        # self.setLayout(self.layout)
+        # self.layout.setColRowStretch(0, 1)
+
+    def mousePressEvent(self, event):
+        if event.button()==Qt.LeftButton:
+            self.m_drag=True
+            self.m_DragPosition=event.globalPos()-self.pos()
+            event.accept()
+
+    def mouseMoveEvent(self, QMouseEvent):
+        if QMouseEvent.buttons() and Qt.LeftButton and self.m_drag:
+            self.move(QMouseEvent.globalPos()-self.m_DragPosition)
+            QMouseEvent.accept()
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.m_drag=False
+
+    def _update_window(self):
+        self._dynamic_ax.clear()
+        global x, y1, y2, y3, N, count_iter, last_number_clicks
+        x.append(x[count_iter] + 0.01)
+        y1.append(np.random.random())
+        idx_inf = max([count_iter-N, 0])
+        if last_number_clicks < len(clicks):
+            for new_click in clicks[last_number_clicks:(len(clicks))]:
+                rowPosition = self.table_clicks.rowCount()
+                self.table_clicks.insertRow(rowPosition)
+                self.table_clicks.setItem(rowPosition,0, QtWidgets.QTableWidgetItem(str(new_click)))
+                self.table_clicks.setItem(rowPosition,1, QtWidgets.QTableWidgetItem("Descripcion"))
+            last_number_clicks = len(clicks)
+        self._dynamic_ax.plot(x[idx_inf:count_iter], y1[idx_inf:count_iter],'-o', color='b')
+        count_iter += 1
+        self._dynamic_ax.figure.canvas.draw()
+#%%
+if __name__ == "__main__":
+    
+    qapp = QtWidgets.QApplication(sys.argv)
+    app = ApplicationWindow()
+    app.show()
+    sys.exit(qapp.exec_())
