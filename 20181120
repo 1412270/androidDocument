@@ -19,13 +19,132 @@ def onclick(event):
     global clicks
     clicks.append(event.xdata)
 
-class image_label(QLabel):
-    clicked=pyqtSignal()
-    def __init__(self, parent=None):
-        QLabel.__init__(self, parent)
+class Selector(QRubberBand):
 
-    def mousePressEvent(self, ev):
-        self.
+    def __init__(self,*arg,**kwargs):
+        super(Selector,self).__init__(*arg,**kwargs)
+        self._rect_color = Qt.red
+
+    def paintEvent(self,  QPaintEvent,):
+        painter = QtGui.QPainter(self)
+        painter.setPen(QtGui.QPen(Qt.blue,4))
+        color = QtGui.QColor(self._rect_color)
+        painter.setBrush(QtGui.QBrush(color))
+        painter.setOpacity(0.3)
+        painter.drawRect(QPaintEvent.rect())
+
+    def setColor(self, cl):
+        self._rect_color = cl
+        self.update()
+
+class label_group(QWidget):
+    """docstring for color_group"""
+    def __init__(self, parent):
+        super(label_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QHBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.itemList = []
+        self.setLayout(self.layout)
+
+    def add_label(self):
+        label_name = QTextEdit()
+        self.layout.addWidget(label_name)
+
+class color_group(QWidget):
+    """docstring for color_group"""
+    def __init__(self, parent):
+        super(color_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QHBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.itemList = []
+        self.setLayout(self.layout)
+
+    def add_color(self):
+        color_frame = QFrame(self)
+        # color_frame
+        color_frame.setStyleSheet("color: red")
+        self.layout.addWidget(color_frame)
+
+class delete_group(QWidget):
+    """docstring for color_group"""
+    def __init__(self, parent):
+        super(delete_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QHBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        # self.itemList = []
+        self.setLayout(self.layout)
+
+    def add_button(self):
+        delete_btn = QPushButton("Delete")
+        self.layout.addWidget(delete_btn)
+
+class handle_label(QWidget):
+    """docstring for handle_label"""
+    def __init__(self, parent):
+        super(handle_label, self).__init__(parent)
+        self.parent = parent
+        self.layout = QVBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        # self.itemList = []
+        self.setLayout(self.layout)
+        self.initUI()
+
+    def initUI(self):
+        self.label = label_group(self)
+        self.color = color_group(self)
+        self.delete = delete_group(self)
+        self.layout.addWidget(self.color)
+        self.layout.addWidget(self.label)
+        self.layout.addWidget(self.delete)
+        
+class btn_group(QWidget):
+    def __init__(self, parent):
+        super(btn_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QHBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.setStyleSheet("QWidget{background-color:#3BAFDA;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+        # self.til = "hello"
+        # self.setWidgetResizable(True)
+        self.initUI()
+
+    def initUI(self):
+        self.btn_edit = QPushButton("Edit label")
+        self.btn_crop = QPushButton("Auto detect")
+        self.btn_recognition = QPushButton("Recognition")
+        self.btn_export = QPushButton("Export CSV")
+
+        self.layout.addWidget(self.btn_edit)
+        self.layout.addWidget(self.btn_crop)
+        self.layout.addWidget(self.btn_recognition)
+        self.layout.addWidget(self.btn_export)
+
+        self.btn_edit.clicked.connect(self.parent.openWindow)
+        self.setLayout(self.layout)
+
+class frame_label(QFrame):
+    def __init__(self, parent):
+        super(frame_label, self).__init__(parent)
+        self.parent = parent
+
+class image_label(QLabel):
+    def __init__(self, name, parent):
+        super(image_label, self).__init__(parent)
+        self.parent = parent
+        self.name = name
+
+    def mousePressEvent(self, event):
+        pixmap = QPixmap(self.name)
+        self.parent.parent.label.setPixmap(pixmap)
+        print(self.parent.parent)
 
 class cropArea(QScrollArea):
     def __init__(self, parent):
@@ -35,6 +154,7 @@ class cropArea(QScrollArea):
         self.layout = QVBoxLayout(widget)
         self.layout.setAlignment(Qt.AlignTop)
         self.itemList = []
+        # self.til = "hello"
         
         self.setWidget(widget)
         self.setWidgetResizable(True)
@@ -49,8 +169,8 @@ class cropArea(QScrollArea):
 
     def addImage(self, filename, count):
 
-        ImageFrame = QFrame()
-        labelName = QLabel(ImageFrame)
+        ImageFrame = frame_label(parent=self.parent)
+        labelName = image_label(filename, ImageFrame)
         ImageFrame.setFixedSize(240, 80)
         labelName.setGeometry(QRect(0, 85*(count), 200, 80))
         labelName.setStyleSheet("border:4px solid rgb(0, 0, 0); background-color: rgb(255, 255, 255);")
@@ -62,7 +182,7 @@ class cropArea(QScrollArea):
         self.itemList.append(ImageFrame)
         self.layout.addWidget(self.itemList[count-1],3)
 
-class ImageViewer(QWidget):
+class ImageViewer(QMainWindow):
     def __init__(self, parent):
         super(ImageViewer, self).__init__(parent)
         self.parent = parent
@@ -81,6 +201,68 @@ class ImageViewer(QWidget):
 
     def closeEvent(self, event):
         self.ui.close()
+
+class QExampleLabel(QLabel):
+
+    def __init__(self, parent):
+        super(QExampleLabel, self).__init__(parent)
+        self.rubberList = []
+        self.rubber = 0
+        self.parent = parent
+        self.ZOOM_RATIO = 1
+        self.file = open("rubber.txt", "w") 
+        self.initUI()
+
+    def initUI (self):
+        
+        img = cv2.imread(FILENAME, 0)
+        heightImg, widthImg = img.shape[:2]
+        self.setAlignment(Qt.AlignCenter)
+        self.setScaledContents(True)
+        pixmap = QPixmap(FILENAME)
+        self.setPixmap(pixmap)
+        print(heightImg, widthImg)
+        self.ZOOM_RATIO = float("{0:.2f}".format(heightImg/IMAGEVIEWER_HEIGHT))
+        quit = QAction("Quit", self)
+        quit.triggered.connect(self.closeEvent)
+        self.addAction(quit)
+
+    def mousePressEvent (self, eventQMouseEvent):
+        self.originQPoint = eventQMouseEvent.pos()
+        currentQRubberBand = Selector(QRubberBand.Rectangle, self)
+        self.rubberList.append(currentQRubberBand)
+        
+        currentQRect = currentQRubberBand.geometry()
+        # file.close()
+        self.rubberList[self.rubber].setColor(COLOR_RUBBER[self.rubber])
+        self.rubberList[self.rubber].setGeometry(QRect(self.originQPoint, QtCore.QSize()))
+        self.file.write(str(self.rubberList[self.rubber].geometry().x()) + " " + str(self.rubberList[self.rubber].geometry().y()))
+        self.rubberList[self.rubber].show()
+
+    def mouseMoveEvent (self, eventQMouseEvent):
+        self.rubberList[self.rubber].setGeometry(QRect(self.originQPoint, eventQMouseEvent.pos()).normalized())
+
+    def mouseReleaseEvent (self, eventQMouseEvent):
+
+        labelList = [1, 2, 3]
+        self.rubberList[self.rubber].hide()
+        currentQRect = self.rubberList[self.rubber].geometry()
+        currentQRect = QRect(int(currentQRect.x()*self.ZOOM_RATIO), int(currentQRect.y()*self.ZOOM_RATIO), int(currentQRect.width()*self.ZOOM_RATIO), int(currentQRect.height()*self.ZOOM_RATIO))
+        # self.currentQRubberBand.setStyleSheet("QRubberBand{color:#2C3E50;}")
+        self.rubberList[self.rubber].show()
+        self.file.write(" " + str(eventQMouseEvent.x()) + " " + str(eventQMouseEvent.y()) + "\n")
+        self.rubber = self.rubber + 1
+        print(currentQRect)
+
+        self.parent.parent.detect_group.label.add_label()
+        self.parent.parent.detect_group.color.add_color()
+        self.parent.parent.detect_group.delete.add_button()
+        # self.currentQRubberBand.deleteLater()
+        # self.parent.close()
+
+    def close(self):
+        print("close")
+        self.file.close()
 
 class ApplicationWindow(QWidget):
     def __init__(self):
@@ -108,6 +290,16 @@ class ApplicationWindow(QWidget):
                                     "font-family:Meiryo UI;"
                                     "qproperty-alignment:AlignCenter;}")
 
+        qlbl_title2 = QLabel("", self)
+        # qlbl_title2.setGeometry(0,580,980,100)
+        qlbl_title2.setStyleSheet("QLabel{background-color:#3BAFDA;"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+
         self.other_widget = QLabel("Optical Character Recognition", 
             font=QFont("Times", 20, QtGui.QFont.Bold), 
             alignment=QtCore.Qt.AlignCenter)
@@ -126,23 +318,34 @@ class ApplicationWindow(QWidget):
         self.label.setPixmap(pixmap)
         print(self.label.width(), self.label.height())
 
+        self.btn_group = btn_group(self)
+        self.detect_group = handle_label(self)
+
         # layouts
 
         self.layout = QtWidgets.QGridLayout(self)
         self.layout.addWidget(self.other_widget, 0, 0, 1, 2)
         self.layout.addWidget(self.image_view, 1, 1)
-        self.layout.addWidget(self.scan_widget, 1, 0)
+        self.layout.addWidget(self.scan_widget, 1, 0, 4, 1)
+        self.layout.addWidget(self.btn_group, 2, 1)
+        self.layout.addWidget(self.detect_group, 3, 1)
 
         self.layout.setColumnStretch(0, 2)
         self.layout.setColumnStretch(1, 5)
         self.layout.setRowStretch(0, 1)
-        self.layout.setRowStretch(1, 8)
+        self.layout.setRowStretch(1, 12)
+        self.layout.setRowStretch(2, 2)
+        self.layout.setRowStretch(3, 4)
 
         self.content_widget = QWidget(self)
         self.content_widget.setLayout(self.layout)
+
         self.content_widget.setGeometry(QRect(5, 110, 970, 600))
         # self.setLayout(self.layout)
         # self.layout.setColRowStretch(0, 1)
+
+        self.image_view = ImageViewer(self)
+
 
     def mousePressEvent(self, event):
         if event.button()==Qt.LeftButton:
@@ -158,22 +361,8 @@ class ApplicationWindow(QWidget):
     def mouseReleaseEvent(self, QMouseEvent):
         self.m_drag=False
 
-    def _update_window(self):
-        self._dynamic_ax.clear()
-        global x, y1, y2, y3, N, count_iter, last_number_clicks
-        x.append(x[count_iter] + 0.01)
-        y1.append(np.random.random())
-        idx_inf = max([count_iter-N, 0])
-        if last_number_clicks < len(clicks):
-            for new_click in clicks[last_number_clicks:(len(clicks))]:
-                rowPosition = self.table_clicks.rowCount()
-                self.table_clicks.insertRow(rowPosition)
-                self.table_clicks.setItem(rowPosition,0, QtWidgets.QTableWidgetItem(str(new_click)))
-                self.table_clicks.setItem(rowPosition,1, QtWidgets.QTableWidgetItem("Descripcion"))
-            last_number_clicks = len(clicks)
-        self._dynamic_ax.plot(x[idx_inf:count_iter], y1[idx_inf:count_iter],'-o', color='b')
-        count_iter += 1
-        self._dynamic_ax.figure.canvas.draw()
+    def openWindow(self):
+        self.image_view.show()
 #%%
 if __name__ == "__main__":
     
