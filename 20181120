@@ -6,13 +6,14 @@ import glob
 from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 from PyQt5.QtCore import Qt, QSize, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
 from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QApplication, QAction, QFrame, QMainWindow, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
-from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter
+from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter, QScreen
 
 FILENAME = "Scan/1.png"
 
 IMAGEVIEWER_WIDTH = 480
 IMAGEVIEWER_HEIGHT = 320
 COLOR_RUBBER = [Qt.red, Qt.blue, Qt.green, Qt.yellow, Qt.gray]
+COLOR_LABEL = ["red", "blue", "green", "yellow", "gray"]
 
 
 def onclick(event):
@@ -32,6 +33,8 @@ class Selector(QRubberBand):
         painter.setBrush(QtGui.QBrush(color))
         painter.setOpacity(0.3)
         painter.drawRect(QPaintEvent.rect())
+
+        # painter.drawImage(event.rect(), self.parent.image, self.rect())
 
     def setColor(self, cl):
         self._rect_color = cl
@@ -61,11 +64,16 @@ class color_group(QWidget):
         self.itemList = []
         self.setLayout(self.layout)
 
-    def add_color(self):
-        color_frame = QFrame(self)
+    def add_color(self, count):
+        # color_frame = QFrame(self)
         # color_frame
-        color_frame.setStyleSheet("color: red")
-        self.layout.addWidget(color_frame)
+        color_label = QLabel(self)
+        color_label.setStyleSheet("QLabel{background-color:" + COLOR_LABEL[count] + ";"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "qproperty-alignment:AlignCenter;}")
+        # color_frame.setStyleSheet("color: red")
+        self.layout.addWidget(color_label)
 
 class delete_group(QWidget):
     """docstring for color_group"""
@@ -90,6 +98,7 @@ class handle_label(QWidget):
         self.layout.setAlignment(Qt.AlignTop)
         # self.itemList = []
         self.setLayout(self.layout)
+        self.count = 0
         self.initUI()
 
     def initUI(self):
@@ -99,6 +108,12 @@ class handle_label(QWidget):
         self.layout.addWidget(self.color)
         self.layout.addWidget(self.label)
         self.layout.addWidget(self.delete)
+
+    def addChild(self):
+        self.label.add_label()
+        self.color.add_color(self.count)
+        self.delete.add_button()
+        self.count = self.count + 1
         
 class btn_group(QWidget):
     def __init__(self, parent):
@@ -221,11 +236,17 @@ class QExampleLabel(QLabel):
         self.setScaledContents(True)
         pixmap = QPixmap(FILENAME)
         self.setPixmap(pixmap)
+        self.path = QPainterPath()
+        self.image = QImage(widthImg, heightImg, QImage.Format_RGB32)
+
         print(heightImg, widthImg)
         self.ZOOM_RATIO = float("{0:.2f}".format(heightImg/IMAGEVIEWER_HEIGHT))
         quit = QAction("Quit", self)
         quit.triggered.connect(self.closeEvent)
         self.addAction(quit)
+
+    def saveImage(self, fileName, fileFormat):
+        self.image.save(fileName, fileFormat)
 
     def mousePressEvent (self, eventQMouseEvent):
         self.originQPoint = eventQMouseEvent.pos()
@@ -239,24 +260,25 @@ class QExampleLabel(QLabel):
         self.file.write(str(self.rubberList[self.rubber].geometry().x()) + " " + str(self.rubberList[self.rubber].geometry().y()))
         self.rubberList[self.rubber].show()
 
+        self.path.moveTo(eventQMouseEvent.pos())
+
     def mouseMoveEvent (self, eventQMouseEvent):
         self.rubberList[self.rubber].setGeometry(QRect(self.originQPoint, eventQMouseEvent.pos()).normalized())
-
+        
     def mouseReleaseEvent (self, eventQMouseEvent):
 
         labelList = [1, 2, 3]
-        self.rubberList[self.rubber].hide()
+        # self.rubberList[self.rubber].hide()
+
         currentQRect = self.rubberList[self.rubber].geometry()
         currentQRect = QRect(int(currentQRect.x()*self.ZOOM_RATIO), int(currentQRect.y()*self.ZOOM_RATIO), int(currentQRect.width()*self.ZOOM_RATIO), int(currentQRect.height()*self.ZOOM_RATIO))
         # self.currentQRubberBand.setStyleSheet("QRubberBand{color:#2C3E50;}")
         self.rubberList[self.rubber].show()
         self.file.write(" " + str(eventQMouseEvent.x()) + " " + str(eventQMouseEvent.y()) + "\n")
         self.rubber = self.rubber + 1
-        print(currentQRect)
+        # print(currentQRect)
 
-        self.parent.parent.detect_group.label.add_label()
-        self.parent.parent.detect_group.color.add_color()
-        self.parent.parent.detect_group.delete.add_button()
+        self.parent.parent.detect_group.addChild()
         # self.currentQRubberBand.deleteLater()
         # self.parent.close()
 
