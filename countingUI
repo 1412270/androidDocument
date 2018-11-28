@@ -1,0 +1,371 @@
+import sys, os, io
+import ntpath
+import cv2
+import numpy as np
+import glob
+import subprocess as sp
+import json
+from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
+from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtCore import QDir, Qt, QUrl, Qt, QSize, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
+from PyQt5.QtWidgets import QSizePolicy, QSlider, QStyle, QMessageBox, QVBoxLayout, QApplication, QAction, QFrame, QMainWindow, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
+from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter, QScreen
+from pymediainfo import MediaInfo
+
+IMAGEVIEWER_WIDTH = 480
+IMAGEVIEWER_HEIGHT = 320
+BUTTON_ZOOM_SIZE = 70
+ICON_SIZE = 40
+COLOR_RUBBER = [Qt.red, Qt.blue, Qt.green, Qt.yellow, Qt.gray]
+COLOR_LABEL = ["red", "blue", "green", "yellow", "gray"]
+
+def onclick(event):
+    global clicks
+    clicks.append(event.xdata)
+
+class BtnTitlebar(QPushButton):
+    def __init__(self, *args, **kwargs):
+        super(BtnTitlebar, self).__init__(*args, **kwargs)
+        self.m_ishover = False
+        
+    def paintEvent(self, evt):
+        super(BtnTitlebar, self).paintEvent(evt)
+        
+    def isHover(self):
+        return self.m_ishover
+        
+    def enterEvent(self, evt):
+        self.m_ishover = True
+        
+    def leaveEvent(self, evt):
+        self.m_ishover = False
+
+class BtnFolder(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnFolder, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnFolder, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('Icon/openIcon2.png'))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
+        else:
+            self.setIcon(QIcon('Icon/openIcon.png'))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
+  
+class BtnConfig(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnConfig, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnConfig, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('Icon/cropIcon2.png'))
+            self.setIconSize(QSize(BUTTON_ZOOM_SIZE,BUTTON_ZOOM_SIZE))
+        else:
+            self.setIcon(QIcon('Icon/cropIcon1.png'))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
+
+class BtnInfor(BtnTitlebar):
+    def __init__(self, *args, **kwargs):
+        super(BtnInfor, self).__init__(*args, **kwargs)
+        
+    def paintEvent(self, evt):
+        super(BtnInfor, self).paintEvent(evt)
+        painter = QtGui.QPainter(self)
+        if self.isDown() or self.isHover():
+            self.setIcon(QIcon('Icon/recognitionIcon1.png'))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
+        else:
+            self.setIcon(QIcon('Icon/recognitionIcon2.png'))
+            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
+
+class option_group(QWidget):
+
+    def __init__(self, parent):
+        super(option_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QVBoxLayout(self)
+        # self.layout.setAlignment(Qt.AlignTop)
+        # self.itemList = []
+        self.setLayout(self.layout)
+        self.count = 0
+        self.btn_folder = BtnFolder(self)
+        self.btn_config = BtnConfig(self)
+        self.btn_infor = BtnInfor(self)
+
+        self.layout.addWidget(self.btn_folder)
+        self.layout.addWidget(self.btn_config)
+        self.layout.addWidget(self.btn_infor)
+        
+class btn_group(QWidget):
+    def __init__(self, parent):
+        super(btn_group, self).__init__(parent)
+        self.parent = parent
+        self.layout = QHBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.setStyleSheet("QWidget{background-color:#3BAFDA;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+        # self.til = "hello"
+        # self.setWidgetResizable(True)
+        self.initUI()
+
+    def initUI(self):
+        self.btn_edit = QPushButton("Edit label")
+        self.btn_crop = QPushButton("Auto detect")
+        self.btn_recognition = QPushButton("Recognition")
+
+        self.layout.addWidget(self.btn_edit)
+        self.layout.addWidget(self.btn_crop)
+        self.layout.addWidget(self.btn_recognition)
+        self.layout.addWidget(self.btn_export)
+        self.btn_edit.clicked.connect(self.parent.openWindow)
+
+        self.setLayout(self.layout)
+
+class video_item(QWidget):
+    def __init__(self, name, duration, parent):
+        super(video_item, self).__init__(parent)
+        self.parent = parent
+        self.name = name
+        self.layout = QVBoxLayout(self)
+        self.setLayout(self.layout)
+        self.initUI(name, duration)
+
+    def initUI(self, name, duration):
+        
+        # name_frame = frame_label(self)
+        # duration_frame = frame_label(self)
+        name_label = QLabel(str(name), self)
+        name_label.setStyleSheet("QLabel{background-color:#4a93ca;"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+        duration_label = QLabel(str(duration), self)
+        duration_label.setStyleSheet("QLabel{background-color:#3BAFDA;"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:16px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+
+        self.layout.addWidget(name_label)
+        self.layout.addWidget(duration_label)
+        self.layout.setStretch(0, 2)
+        self.layout.setStretch(1, 1)
+
+    def mousePressEvent(self, event):
+        FILENAME = self.name
+        pixmap = QPixmap(self.name)
+        self.parent.parent.label.setPixmap(pixmap)
+        self.parent.parent.image_view.setImage(self.name)
+        # print(self.parent.parent)
+   
+class video_list(QScrollArea):
+    def __init__(self, parent):
+        super(video_list, self).__init__(parent)
+        widget = QWidget()
+        self.parent = parent
+        self.layout = QVBoxLayout(widget)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.itemList = []
+        # self.til = "hello"
+        self.setWidget(widget)
+        self.setWidgetResizable(True)
+        self.count =0 
+        self.initUI()
+
+    def initUI(self):
+        # media_info = MediaInfo.parse('D:/Counting/20180409.MP4')
+        for file in glob.glob("vid/*.MP4"):
+            # duration = getDuration("vid/20180217.MP4")
+            print(file)
+            media_info = MediaInfo.parse(file)
+            duration_in_ms = media_info.tracks[0].duration
+            duration = int(duration_in_ms/1000)
+            print('duration: ' + str(duration))
+            self.addVideo(str(file), duration)
+            self.count = self.count + 1
+
+    def addVideo(self, filename, duration):
+
+        video = video_item(filename,duration,parent=self)
+        print(type(video))
+        self.itemList.append(video)
+        print(type(self.itemList[self.count]))
+        self.layout.addWidget(video,3)
+
+    def changeDirection(self, newfolder):
+        for i in reversed(range(self.layout.count())): 
+            self.layout.itemAt(i).widget().setParent(None)
+
+        self.count = 0
+        print("new Directory: " + str(newfolder))
+        for file in glob.glob(str(newfolder) + "/*.MP4"):
+            print(file)
+            videoname = file.split('/')
+            name = videoname[len(videoname) - 1]
+            media_info = MediaInfo.parse(file)
+            duration_in_ms = media_info.tracks[0].duration
+            duration = int(duration_in_ms/1000)
+            print('duration: ' + str(duration))
+            self.addVideo(str(name), duration)
+            self.count = self.count + 1
+
+class frame_label(QFrame):
+    def __init__(self, parent):
+        super(frame_label, self).__init__(parent)
+        self.parent = parent
+
+class videoplayer(QWidget):
+    def __init__(self, parent):
+        super(videoplayer, self).__init__(parent)
+
+        self.parent = parent
+        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
+        videoWidget = QVideoWidget()
+
+        self.playButton = QPushButton()
+        self.playButton.setEnabled(False)
+        self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
+        self.playButton.clicked.connect(self.play)
+
+        self.positionSlider = QSlider(Qt.Horizontal)
+        self.positionSlider.setRange(0, 0)
+        self.positionSlider.sliderMoved.connect(self.setPosition)
+
+        controlLayout = QHBoxLayout()
+        controlLayout.setContentsMargins(0, 0, 0, 0)
+        controlLayout.addWidget(self.playButton)
+        controlLayout.addWidget(self.positionSlider)
+
+        layout = QVBoxLayout()
+        layout.addWidget(videoWidget)
+        layout.addLayout(controlLayout)
+
+        self.setLayout(layout)
+        self.mediaPlayer.setVideoOutput(videoWidget)
+        self.mediaPlayer.stateChanged.connect(self.mediaStateChanged)
+        self.mediaPlayer.positionChanged.connect(self.positionChanged)
+        self.mediaPlayer.durationChanged.connect(self.durationChanged)
+        self.mediaPlayer.setMedia(
+            QMediaContent(QUrl.fromLocalFile("20181109.MP4")))
+        self.playButton.setEnabled(True)
+    
+    def play(self):
+        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.pause()
+        else:
+            self.mediaPlayer.play()
+
+    def mediaStateChanged(self, state):
+        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.playButton.setIcon(
+                    self.style().standardIcon(QStyle.SP_MediaPause))
+        else:
+            self.playButton.setIcon(
+                    self.style().standardIcon(QStyle.SP_MediaPlay))
+    def positionChanged(self, position):
+        self.positionSlider.setValue(position)
+
+    def durationChanged(self, duration):
+        self.positionSlider.setRange(0, duration)
+
+    def setPosition(self, position):
+        self.mediaPlayer.setPosition(position)
+
+class ApplicationWindow(QWidget):
+    def __init__(self):
+
+        QWidget.__init__(self)
+        self.m_DragPosition=self.pos()
+        self.m_drag = False
+        self.resize(1080,800)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setMouseTracking(True)
+        self.setStyleSheet("QWidget{background-color:#2C3E50;}")
+        self._title = 'Check'
+        self.setWindowTitle(self._title)
+        self.DIRECTION = "vid/"
+
+        # self.setCentralWidget(self._main)
+
+        self.header = QLabel("Customer flow in store", 
+            font=QFont("Times", 20, QtGui.QFont.Bold), 
+            alignment=QtCore.Qt.AlignCenter)
+        self.header.setStyleSheet('background-color: red')
+        self.option = option_group(self)
+        # self.option.setStyleSheet('background-color: yellow')
+        self.video_list = video_list(self)
+        # self.video_list.setStyleSheet('background-color: blue')
+        self.video_player = videoplayer(self)
+        # self.video_player.setStyleSheet('background-color: green')
+        self.btn_group = QLabel(self)
+        self.btn_group.setStyleSheet('background-color: orange')
+        self.result = QLabel(self)
+        self.result.setStyleSheet('background-color: silver')
+        
+        # layouts
+        self.layout = QtWidgets.QGridLayout(self)
+        # self.layout.setSpacing(0)
+        self.layout.addWidget(self.header, 0, 0, 1, 3)
+        self.layout.addWidget(self.option, 1, 0, 3, 1)
+        self.layout.addWidget(self.video_list, 1, 1, 3, 1)
+        self.layout.addWidget(self.video_player, 1, 2)
+        self.layout.addWidget(self.btn_group, 2, 2)
+        self.layout.addWidget(self.result, 3, 2)
+
+        self.layout.setColumnStretch(0, 2)
+        self.layout.setColumnStretch(1, 3)
+        self.layout.setColumnStretch(2, 9)
+        self.layout.setRowStretch(0, 2)
+        self.layout.setRowStretch(1, 6)
+        self.layout.setRowStretch(2, 1)
+        self.layout.setRowStretch(3, 2)
+
+        self.content_widget = QWidget(self)
+        self.content_widget.setLayout(self.layout)
+        self.content_widget.setGeometry(QRect(5, 25, 1070, 700))
+        self.option.btn_folder.clicked.connect(self.setFolder)
+
+    def mousePressEvent(self, event):
+        if event.button()==Qt.LeftButton:
+            self.m_drag=True
+            self.m_DragPosition=event.globalPos()-self.pos()
+            event.accept()
+
+    def mouseMoveEvent(self, QMouseEvent):
+        if QMouseEvent.buttons() and Qt.LeftButton and self.m_drag:
+            self.move(QMouseEvent.globalPos()-self.m_DragPosition)
+            QMouseEvent.accept()
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.m_drag=False
+
+    def setFolder(self):
+        if QT_VERSION_STR[0] == '4':
+            fileName2 = QFileDialog.getOpenFileName(None, "Open image file...", './Scan', "(*.PNG)")
+        elif QT_VERSION_STR[0] == '5':
+            fileName2 = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+
+        self.DIRECTION = fileName2
+        self.video_list.changeDirection(fileName2)
+
+#%%
+if __name__ == "__main__":
+    
+    qapp = QtWidgets.QApplication(sys.argv)
+    app = ApplicationWindow()
+    app.show()
+    sys.exit(qapp.exec_())
