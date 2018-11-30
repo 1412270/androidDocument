@@ -2,6 +2,7 @@ import sys, os, io
 import ntpath
 import cv2
 import numpy as np
+import csv
 import glob
 import subprocess as sp
 import json
@@ -9,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget, QGraphicsVideoItem
 from PyQt5.QtCore import QDir, Qt, QUrl, Qt, QSize, QSizeF, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
-from PyQt5.QtWidgets import QSizePolicy, QSizePolicy, QSlider, QStyle, QMessageBox, QVBoxLayout, QApplication, QAction, QFrame, QMainWindow, QTableWidget, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
+from PyQt5.QtWidgets import QSizePolicy, QSizePolicy, QSlider, QStyle, QMessageBox, QLineEdit, QVBoxLayout, QApplication, QAction, QTableWidgetItem, QFrame, QMainWindow, QTableWidget, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
 from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter, QScreen
 from pymediainfo import MediaInfo
 # from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -25,30 +26,101 @@ def onclick(event):
     global clicks
     clicks.append(event.xdata)
 
+def checkInfo(store, day, begin, durant):
+    message = ""
+    if store == "":
+        message = "Nhap ten cua hang"
+    if day == "":
+        message = "Nhap ngay"
+
+class mainTab(QTabWidget):
+    def __init__(self, parent):
+        super(resultTable, self).__init__(parent)
+        self.setTabPosition(2)
+        self.tab1 = QWidget(self)
+        self.tab2 = QWidget(self)
+        self.tab3 = QWidget(self)
+        self.setTabIcon(0,QIcon('Icon/openIcon.png'))
+        self.setTabIcon(1,QIcon('Icon/cropIcon1.png'))
+        self.setTabIcon(2,QIcon('Icon/recognitionIcon1.png'))
+
+        self.tab1.layout = QGridLayout()
+        self.tab2.layout = QGridLayout()
+        self.tab3.layout = QGridLayout()
+
+        self.video_list = video_list(self)
+        self.video_player = videoplayer(self)
+        self.btn_group = btn_group(self)
+        self.detail = inforBox(self)
+        
+        # layouts
+        self.tab1.layout = QtWidgets.QGridLayout(self)
+        self.tab1.layout.addWidget(self.video_list, 0, 1, 3, 1)
+        self.tab1.layout.addWidget(self.video_player, 0, 2)
+        self.tab1.layout.addWidget(self.detail, 1, 2)
+        self.tab1.layout.addWidget(self.btn_group, 2, 2)
+
+        self.tab1.layout.setColumnStretch(0, 1)
+        self.tab1.layout.setColumnStretch(1, 3)
+        self.tab1.layout.setRowStretch(0, 6)
+        self.tab1.layout.setRowStretch(1, 1)
+        self.tab1.layout.setRowStretch(2, 1)
+        self.tab1.layout.setRowStretch(3, 2)        
+
 class resultTable(QTableWidget):
      """docstring for resultTable"""
      def __init__(self, parent):
         super(resultTable, self).__init__(parent)
-        # self.parent = parent
-        # self.tableWidget = QTableWidget(self)
-        # self.tableWidget.setRowCount(2)
-        # self.tableWidget.setColumnCount(3)
-
-        # header_labels = ['Time', 'In', 'Out']
-        # self.tableWidget.setHorizontalHeaderLabels(header_labels)
-
         self.parent = parent
         self.setRowCount(2)
         self.setColumnCount(3)
 
         header_labels = ['Time', 'In', 'Out']
         self.setHorizontalHeaderLabels(header_labels)
+        row = 2
+        column = 3
+        for i in range(0, 2):
+            for j in range(0, 3):
+                self.setItem(i,j, QTableWidgetItem(str(i*j)))
+        print("s")
 
-class ConfigWidget(object):
+class inforBox(QWidget):
+    def __init__(self, parent):
+        super(inforBox, self).__init__(parent)
+        self.layout = QtWidgets.QGridLayout(self)
+        self.setStyleSheet("QWidget{background-color: #838b99}")
+        self.initUI()
+
+    def initUI(self):
+        store_label = QLabel("Ten cua hang: ", self)
+        day_label = QLabel("Ngay kiem tra: ", self)
+        time_label = QLabel("Gio bat dau: ", self)
+        duration_label = QLabel("Do dai moi lan dem: ", self)
+
+        store_text = QLineEdit(self)
+        day_text = QLineEdit(self)
+        time_text = QLineEdit(self)
+        duration_text = QLineEdit(self)
+        self.layout.addWidget(store_label, 0, 0)
+        self.layout.addWidget(store_text, 0, 1)
+        self.layout.addWidget(day_label, 1, 0)
+        self.layout.addWidget(day_text, 1, 1)
+        self.layout.addWidget(time_label, 0, 2)
+        self.layout.addWidget(time_text, 0, 3)
+        self.layout.addWidget(duration_label, 1, 2)
+        self.layout.addWidget(duration_text, 1, 3)
+
+class ConfigWidget(QWidget):
     """docstring for ConfigWidget"""
     def __init__(self, parent):
         super(ConfigWidget, self).__init__(parent)
         self.parent = parent
+
+        self.layout = QGridLayout(self)
+        self.set_location_label = QLabel("Set default location of video folder: ")
+        self.set_model_label = QLabel("Set default model used: ")
+        self.set_store_label = QLabel("Set default store name: ")
+        self.set_duration_label = QLabel("Set default duration of video: ")
         
 def secondToMunite(sec):
     m = int(sec/60)
@@ -132,15 +204,6 @@ class option_group(QWidget):
         self.btn_config.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
         self.btn_infor.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
 
-
-        # folder_wid = QWidget(self)
-        # config_wid = QWidget(self)
-        # infor_wid = QWidget(self)
-
-        # folder_wid.setLayout(self.btn_folder)
-        # config_wid.setLayout(self.btn_config)
-        # infor_wid.setLayout(self.btn_infor)
-
         self.layout.addWidget(self.btn_folder)
         self.layout.addWidget(self.btn_config)
         self.layout.addWidget(self.btn_infor)
@@ -168,17 +231,20 @@ class btn_group(QWidget):
         self.layout.addWidget(self.btn_start)
         self.layout.addWidget(self.btn_export)
         self.btn_start.clicked.connect(self.parent.startCounting)
+        self.btn_export.clicked.connect(self.parent.exportCSV)
         self.setLayout(self.layout)
 
 class video_item(QWidget):
-    def __init__(self, name, duration, parent):
+    def __init__(self, location, duration, parent):
         super(video_item, self).__init__(parent)
         self.parent = parent
-        self.name = name
+        self.location = location
+        videopath = location.split('/')
+        self.name = videopath[len(videopath) - 1]
         self.layout = QVBoxLayout(self)
         self.duration = duration
         self.setLayout(self.layout)
-        self.initUI(name, duration)
+        self.initUI(self.name, duration)
 
     def initUI(self, name, duration):
         
@@ -207,9 +273,9 @@ class video_item(QWidget):
         self.layout.setStretch(1, 1)
 
     def mousePressEvent(self, event):
-        self.parent.parent.VIDEO = self.name
+        self.parent.parent.VIDEO = self.location
         self.parent.parent.Length = self.duration
-        self.parent.parent.video_player.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.name)))
+        self.parent.parent.video_player.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(self.location)))
         self.parent.parent.video_player.positionSlider2.setRange(0, int(self.duration))
 
 class video_list(QScrollArea):
@@ -241,9 +307,7 @@ class video_list(QScrollArea):
     def addVideo(self, filename, duration):
 
         video = video_item(filename,duration,parent=self)
-        print(type(video))
         self.itemList.append(video)
-        print(type(self.itemList[self.count]))
         self.layout.addWidget(video,3)
 
     def changeDirection(self, newfolder):
@@ -254,13 +318,13 @@ class video_list(QScrollArea):
         print("new Directory: " + str(newfolder))
         for file in glob.glob(str(newfolder) + "/*.MP4"):
             print(file)
-            videoname = file.split('/')
-            name = videoname[len(videoname) - 1]
+            # videoname = file.split('/')
+            # name = videoname[len(videoname) - 1]
             media_info = MediaInfo.parse(file)
             duration_in_ms = media_info.tracks[0].duration
             duration = int(duration_in_ms/1000)
             print('duration: ' + str(duration))
-            self.addVideo(str(name), duration)
+            self.addVideo(str(file), duration)
             self.count = self.count + 1
 
 class frame_label(QFrame):
@@ -276,11 +340,12 @@ class videoplayer(QWidget):
         self.beginPoint = 0
 
         videoItem = QGraphicsVideoItem()
+        videoItem.setSize(QSizeF(540,240))
+
         # videoItem.setSize(QSizeF(640, 480))
         scene = QGraphicsScene(self)
         scene.addItem(videoItem)
         graphicsView = QGraphicsView(scene)
-        # graphicsView.setSceneRect(Q)
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         self.mediaPlayer.setVideoOutput(videoItem)
@@ -374,7 +439,7 @@ class ApplicationWindow(QWidget):
         self.resize(1080,800)
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setMouseTracking(True)
-        self.setStyleSheet("QWidget{background-color:#2C3E50;}")
+        self.setStyleSheet("QWidget{background-color:#ffffff;}")
         self._title = 'Check'
         self.setWindowTitle(self._title)
         self.DIRECTION = "vid/"
@@ -385,35 +450,7 @@ class ApplicationWindow(QWidget):
             font=QFont("Times", 20, QtGui.QFont.Bold), 
             alignment=QtCore.Qt.AlignCenter)
         self.header.setStyleSheet('background-color: #355282; color: #ffffff')
-        self.option = option_group(self)
-        self.video_list = video_list(self)
-        self.video_player = videoplayer(self)
-        self.btn_group = btn_group(self)
-        # self.result = resultTable(self)
         
-        # layouts
-        self.layout = QtWidgets.QGridLayout(self)
-        # self.layout.setSpacing(0)
-        self.layout.addWidget(self.header, 0, 0, 1, 3)
-        self.layout.addWidget(self.option, 1, 0, 3, 1)
-        self.layout.addWidget(self.video_list, 1, 1, 3, 1)
-        self.layout.addWidget(self.video_player, 1, 2)
-        self.layout.addWidget(self.btn_group, 2, 2)
-        # self.layout.addWidget(self.result, 3, 2)
-
-        self.layout.setColumnStretch(0, 2)
-        self.layout.setColumnStretch(1, 3)
-        self.layout.setColumnStretch(2, 9)
-        self.layout.setRowStretch(0, 2)
-        self.layout.setRowStretch(1, 6)
-        self.layout.setRowStretch(2, 1)
-        self.layout.setRowStretch(3, 2)
-
-        self.content_widget = QWidget(self)
-        self.content_widget.setLayout(self.layout)
-        self.content_widget.setGeometry(QRect(0, 25, 1070, 700))
-        self.option.btn_folder.clicked.connect(self.setFolder)
-
     def mousePressEvent(self, event):
         if event.button()==Qt.LeftButton:
             self.m_drag=True
@@ -441,9 +478,22 @@ class ApplicationWindow(QWidget):
         dura = self.Length - self.start_time
         num = int(dura/self.split) + 1
         start = self.start_time
+        self.result = resultTable(self)
         # for i in range(0, num):
         #     ffmpeg_extract_subclip(self.VIDEO, start, start+self.split, targetname="Process/split" + str(i) + ".mp4")
         #     start = start + self.split
+        self.layout.addWidget(self.result, 4, 2)
+
+    def exportCSV(self):
+        with open('test.csv', 'w') as stream:
+            writer = csv.writer(stream)
+            for row in range(self.result.rowCount()):
+                rowdata = []
+                for column in range(self.result.columnCount()):
+                    item = self.result.item(row, column)
+                    rowdata.append(item.text())
+                    
+                writer.writerow(rowdata)
 
 if __name__ == "__main__":
     
