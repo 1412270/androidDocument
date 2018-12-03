@@ -6,11 +6,12 @@ import csv
 import glob
 import subprocess as sp
 import json
+from pathlib import Path
 from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget, QGraphicsVideoItem
 from PyQt5.QtCore import QDir, Qt, QUrl, Qt, QSize, QSizeF, QRectF, pyqtSignal, QRect, QPoint, QT_VERSION_STR
-from PyQt5.QtWidgets import QSizePolicy, QSizePolicy, QSlider, QStyle, QMessageBox, QLineEdit, QVBoxLayout, QApplication, QAction, QTableWidgetItem, QFrame, QMainWindow, QTableWidget, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
+from PyQt5.QtWidgets import QGridLayout, QTabWidget, QSizePolicy, QSizePolicy, QSlider, QStyle, QMessageBox, QLineEdit, QVBoxLayout, QApplication, QAction, QTableWidgetItem, QFrame, QMainWindow, QTableWidget, QWidget, QTextEdit, QPushButton, QLabel, QGraphicsView, QGraphicsScene, QFileDialog, QRubberBand, QStyleFactory, QHBoxLayout, QListWidget, QScrollArea
 from PyQt5.QtGui import QPalette, QFont, QImage, QPixmap, QPainterPath, QIcon, QPen, QColor, QPainter, QScreen
 from pymediainfo import MediaInfo
 # from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -33,40 +34,133 @@ def checkInfo(store, day, begin, durant):
     if day == "":
         message = "Nhap ngay"
 
-class mainTab(QTabWidget):
+class tab1(QWidget):
     def __init__(self, parent):
-        super(resultTable, self).__init__(parent)
-        self.setTabPosition(2)
-        self.tab1 = QWidget(self)
-        self.tab2 = QWidget(self)
-        self.tab3 = QWidget(self)
-        self.setTabIcon(0,QIcon('Icon/openIcon.png'))
-        self.setTabIcon(1,QIcon('Icon/cropIcon1.png'))
-        self.setTabIcon(2,QIcon('Icon/recognitionIcon1.png'))
-
-        self.tab1.layout = QGridLayout()
-        self.tab2.layout = QGridLayout()
-        self.tab3.layout = QGridLayout()
+        super(tab1, self).__init__(parent)
+        self.parent = parent
+        self.layout = QGridLayout()
+        # self.layout.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.Preferred)
 
         self.video_list = video_list(self)
         self.video_player = videoplayer(self)
         self.btn_group = btn_group(self)
         self.detail = inforBox(self)
-        
+        self.setStyleSheet("QWidget{background-color: #355ab7;}")
         # layouts
-        self.tab1.layout = QtWidgets.QGridLayout(self)
-        self.tab1.layout.addWidget(self.video_list, 0, 1, 3, 1)
-        self.tab1.layout.addWidget(self.video_player, 0, 2)
-        self.tab1.layout.addWidget(self.detail, 1, 2)
-        self.tab1.layout.addWidget(self.btn_group, 2, 2)
+        self.layout = QtWidgets.QGridLayout(self)
+        self.layout.addWidget(self.video_list, 0, 1, 3, 1)
+        self.layout.addWidget(self.video_player, 0, 2)
+        self.layout.addWidget(self.detail, 1, 2)
+        self.layout.addWidget(self.btn_group, 2, 2)
 
-        self.tab1.layout.setColumnStretch(0, 1)
-        self.tab1.layout.setColumnStretch(1, 3)
-        self.tab1.layout.setRowStretch(0, 6)
-        self.tab1.layout.setRowStretch(1, 1)
-        self.tab1.layout.setRowStretch(2, 1)
-        self.tab1.layout.setRowStretch(3, 2)        
+        self.layout.setColumnStretch(0, 1)
+        self.layout.setColumnStretch(1, 3)
+        self.layout.setRowStretch(0, 6)
+        self.layout.setRowStretch(1, 1)
+        self.layout.setRowStretch(2, 1)
+        self.layout.setRowStretch(3, 2)   
 
+        self.setLayout(self.layout)
+
+class tab2(QWidget):
+    def __init__(self, parent):
+        super(tab2, self).__init__(parent)
+        self.parent = parent
+        self.layout = QGridLayout(self)
+        self.layout.setContentsMargins(80,80,80,80)
+        # self.layout.setSpacing(20)
+        self.header_label = QLabel("Cac thong tin mac dinh")
+        self.header_label.setStyleSheet("QLabel{font: 30pt Comic Sans MS; font-weight: bold;}")
+        self.location_label = QLabel("Thu muc video mac dinh")
+        self.location_label.setStyleSheet("QLabel{font: 20pt Comic Sans MS; font-weight: bold;}")
+        self.location_default = QLabel(self.parent.parent.DIRECTION)
+        self.location_default.setStyleSheet("QLabel{font: 18pt Arial; font-weight: bold; color: green}")
+        self.store_label = QLabel("Cua hang mac dinh")
+        self.store_label.setStyleSheet("QLabel{font: 20pt Comic Sans MS; font-weight: bold;}")
+
+        self.store_default = QLabel(self.parent.parent.STORE)
+        self.store_new = QLineEdit(self.parent.parent.STORE)
+        self.output_label = QLabel("Thu muc luu mac dinh")
+        self.output_label.setStyleSheet("QLabel{font: 20pt Comic Sans MS; font-weight: bold;}")
+        self.output_default = QLabel(self.parent.parent.OUTPUT)
+        self.output_default.setStyleSheet("QLabel{font: 18pt Arial; font-weight: bold; color: blue}")
+        self.location_btn = QPushButton("Change default video folder")
+        self.location_btn.setStyleSheet("QPushButton{background-color: #2f65bc;}")
+        self.location_btn.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.Preferred)
+        self.output_btn = QPushButton("Change default output folder")
+        self.output_btn.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.Preferred)
+        self.output_btn.setStyleSheet("QPushButton{background-color: #2f65bc;}")
+        self.save_store = QPushButton("Save change")
+        
+        self.layout.addWidget(self.header_label, 0, 0, 1, 2)  
+        self.layout.addWidget(self.location_label, 1, 0, 1, 1)
+        self.layout.addWidget(self.location_default, 2, 0, 1, 1)
+        self.layout.addWidget(self.location_btn, 1, 1, 2, 1)
+        self.layout.addWidget(self.output_label, 3, 0)
+        self.layout.addWidget(self.output_default, 4, 0)
+        self.layout.addWidget(self.output_btn, 3, 1, 2, 1)
+        self.layout.addWidget(self.store_label, 5, 0)
+        self.layout.addWidget(self.store_default, 6, 0)
+        self.layout.addWidget(self.store_new, 5, 1)
+        self.layout.addWidget(self.save_store, 6, 1)
+
+        # self.layout.addWidget.setMargin
+        self.layout.setColumnStretch(0, 3)
+        self.layout.setColumnStretch(1, 1)
+        self.layout.setRowStretch(8, 3)
+        self.setLayout(self.layout)
+
+        self.location_btn.clicked.connect(self.changeVideoLocation)
+        self.output_btn.clicked.connect(self.changeOutputLocation)
+        self.save_store.clicked.connect(self.changeStoreName)
+
+        with open("config.txt", 'r') as file:
+            self.lines = file.readlines()
+
+    def changeVideoLocation(self):
+        fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        newLocation = fileName + "/"
+        self.location_default.setText(newLocation)
+        self.parent.parent.DIRECTION = newLocation
+        self.lines[0] = newLocation + "\n"
+        with open("config.txt", 'w') as file:
+            file.writelines(self.lines)
+        self.parent.parent.tab.tab1.video_list.changeDirection(newLocation)
+
+    def changeOutputLocation(self):
+        fileName = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        newOutput = fileName + "/"
+        self.output_default.setText(newOutput)
+        self.parent.parent.OUTPUT = newOutput
+        self.lines[1] = newOutput + "\n"
+        with open("config.txt", 'w') as file:
+            file.writelines(self.lines)
+
+    def changeStoreName(self):
+        self.parent.parent.STORE = self.store_new.getText()
+        self.lines[2] = self.store_new.text() + "\n"
+        with open("config.txt", 'w') as file:
+            file.writelines(self.lines)
+
+class mainTab(QTabWidget):
+    def __init__(self, parent):
+        super(mainTab, self).__init__(parent)
+        self.parent = parent
+        self.setTabPosition(2)
+        self.tab1 = tab1(self)
+        self.tab1.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.Preferred)
+        self.tab2 = tab2(self)
+        self.tab3 = QWidget()
+        self.addTab(self.tab1, "")
+        self.addTab(self.tab2, "")
+        self.addTab(self.tab3, "")
+        self.setTabIcon(0,QIcon('Icon/doorIcon.png'))
+        self.setTabIcon(1,QIcon('Icon/penIcon.png'))
+        self.setTabIcon(2,QIcon('Icon/aboutIcon.png'))
+        self.setIconSize(QSize(120,120))
+
+        self.tab3.layout = QGridLayout()
+    
 class resultTable(QTableWidget):
      """docstring for resultTable"""
      def __init__(self, parent):
@@ -82,7 +176,6 @@ class resultTable(QTableWidget):
         for i in range(0, 2):
             for j in range(0, 3):
                 self.setItem(i,j, QTableWidgetItem(str(i*j)))
-        print("s")
 
 class inforBox(QWidget):
     def __init__(self, parent):
@@ -144,70 +237,7 @@ class BtnTitlebar(QPushButton):
         
     def leaveEvent(self, evt):
         self.m_ishover = False
-
-class BtnFolder(BtnTitlebar):
-    def __init__(self, *args, **kwargs):
-        super(BtnFolder, self).__init__(*args, **kwargs)
-        
-    def paintEvent(self, evt):
-        super(BtnFolder, self).paintEvent(evt)
-        painter = QtGui.QPainter(self)
-        if self.isDown() or self.isHover():
-            self.setIcon(QIcon('Icon/openIcon2.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-        else:
-            self.setIcon(QIcon('Icon/openIcon.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-  
-class BtnConfig(BtnTitlebar):
-    def __init__(self, *args, **kwargs):
-        super(BtnConfig, self).__init__(*args, **kwargs)
-        
-    def paintEvent(self, evt):
-        super(BtnConfig, self).paintEvent(evt)
-        painter = QtGui.QPainter(self)
-        if self.isDown() or self.isHover():
-            self.setIcon(QIcon('Icon/cropIcon2.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-        else:
-            self.setIcon(QIcon('Icon/cropIcon1.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-
-class BtnInfor(BtnTitlebar):
-    def __init__(self, *args, **kwargs):
-        super(BtnInfor, self).__init__(*args, **kwargs)
-        
-    def paintEvent(self, evt):
-        super(BtnInfor, self).paintEvent(evt)
-        painter = QtGui.QPainter(self)
-        if self.isDown() or self.isHover():
-            self.setIcon(QIcon('Icon/recognitionIcon1.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-        else:
-            self.setIcon(QIcon('Icon/recognitionIcon2.png'))
-            self.setIconSize(QSize(ICON_SIZE,ICON_SIZE))
-
-class option_group(QWidget):
-
-    def __init__(self, parent):
-        super(option_group, self).__init__(parent)
-        self.parent = parent
-        self.layout = QVBoxLayout(self)
-        self.layout.setSpacing(0)
-        # self.layout.setAlignment(Qt.AlignTop)
-        # self.itemList = []
-        self.setLayout(self.layout)
-        self.btn_folder = BtnFolder(self)
-        self.btn_config = BtnConfig(self)
-        self.btn_infor = BtnInfor(self)
-        self.btn_folder.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
-        self.btn_config.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
-        self.btn_infor.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.Preferred)
-
-        self.layout.addWidget(self.btn_folder)
-        self.layout.addWidget(self.btn_config)
-        self.layout.addWidget(self.btn_infor)
-        
+     
 class btn_group(QWidget):
     def __init__(self, parent):
         super(btn_group, self).__init__(parent)
@@ -230,8 +260,8 @@ class btn_group(QWidget):
 
         self.layout.addWidget(self.btn_start)
         self.layout.addWidget(self.btn_export)
-        self.btn_start.clicked.connect(self.parent.startCounting)
-        self.btn_export.clicked.connect(self.parent.exportCSV)
+        self.btn_start.clicked.connect(self.parent.parent.parent.startCounting)
+        self.btn_export.clicked.connect(self.parent.parent.parent.exportCSV)
         self.setLayout(self.layout)
 
 class video_item(QWidget):
@@ -241,6 +271,7 @@ class video_item(QWidget):
         self.location = location
         videopath = location.split('/')
         self.name = videopath[len(videopath) - 1]
+        print(self.name)
         self.layout = QVBoxLayout(self)
         self.duration = duration
         self.setLayout(self.layout)
@@ -284,25 +315,29 @@ class video_list(QScrollArea):
         widget = QWidget()
         self.parent = parent
         self.layout = QVBoxLayout(widget)
-        self.layout.setAlignment(Qt.AlignTop)
+        # self.layout.setAlignment(Qt.AlignTop)
         self.itemList = []
-        # self.til = "hello"
         self.setWidget(widget)
         self.setWidgetResizable(True)
         self.count = 0 
         self.initUI()
 
     def initUI(self):
-        # media_info = MediaInfo.parse('D:/Counting/20180409.MP4')
-        for file in glob.glob("vid/*.MP4"):
-            # duration = getDuration("vid/20180217.MP4")
-            print(file)
+        self.btn_folder = QPushButton("Change directory") 
+        self.btn_folder.setStyleSheet("QPushButton{background-color: #2f65bc;}")
+        self.layout.addWidget(self.btn_folder)
+
+        # videopath = self.parent.parent.parent.DIRECTION.split("/")
+        # path = videopath[len(videopath) - 1]
+        
+        for file in Path(self.parent.parent.parent.DIRECTION).glob("*.MP4"):
             media_info = MediaInfo.parse(file)
             duration_in_ms = media_info.tracks[0].duration
             duration = int(duration_in_ms/1000)
-            print('duration: ' + str(duration))
             self.addVideo(str(file), duration)
             self.count = self.count + 1
+
+        self.btn_folder.clicked.connect(self.changeDirection)
 
     def addVideo(self, filename, duration):
 
@@ -311,7 +346,7 @@ class video_list(QScrollArea):
         self.layout.addWidget(video,3)
 
     def changeDirection(self, newfolder):
-        for i in reversed(range(self.layout.count())): 
+        for i in reversed(range(self.layout.count()-1)): 
             self.layout.itemAt(i).widget().setParent(None)
 
         self.count = 0
@@ -349,7 +384,7 @@ class videoplayer(QWidget):
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
         self.mediaPlayer.setVideoOutput(videoItem)
-        self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile('D:/Counting/20180409.MP4')))
+        self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile(str(self.parent.parent.parent.VIDEO))))
         # videoWidget = QVideoWidget()
 
         self.playButton = QPushButton()
@@ -361,7 +396,7 @@ class videoplayer(QWidget):
         self.positionSlider.sliderMoved.connect(self.setPosition)
         self.positionSlider2 = QSlider(Qt.Horizontal)
         self.timeLabel = QLabel("00:00")
-        self.positionSlider2.setRange(0, int(self.parent.Length))
+        self.positionSlider2.setRange(0, 274)
         # self.positionSlider2.setStyleSheet("QSlider{color: blue;}")
         self.positionSlider2.sliderMoved.connect(self.valuechange)
 
@@ -429,7 +464,20 @@ class videoplayer(QWidget):
 class ApplicationWindow(QWidget):
     def __init__(self):
 
-        self.VIDEO = "20180409.MP4"
+        configfile = open("config.txt", "r")
+        line = configfile.readlines()
+        video_location = line[0].split('\n')
+        output_location = line[1].split('\n')
+        store_name = line[2].split('\n')
+
+        location = video_location[0]
+        output = output_location[0]
+        store = store_name[0]
+        self.VIDEO = ""
+        self.DIRECTION = location
+        self.STORE = store
+        self.OUTPUT = output
+
         self.Length = 172
         self.split = 60
         self.start_time = 0
@@ -442,15 +490,30 @@ class ApplicationWindow(QWidget):
         self.setStyleSheet("QWidget{background-color:#ffffff;}")
         self._title = 'Check'
         self.setWindowTitle(self._title)
-        self.DIRECTION = "vid/"
 
         # self.setCentralWidget(self._main)
 
-        self.header = QLabel("CUSTOMER'S FLOW IN STORE", 
-            font=QFont("Times", 20, QtGui.QFont.Bold), 
-            alignment=QtCore.Qt.AlignCenter)
-        self.header.setStyleSheet('background-color: #355282; color: #ffffff')
-        
+        header = QLabel("CUSTOMER'S FLOW IN STORE", self)
+        header.setStyleSheet("QLabel{background-color:#4a93ca;"
+                                    "border:none;"
+                                    "color:#ffffff;"
+                                    "font:bold;"
+                                    "font-size:20px;"
+                                    "font-family:Meiryo UI;"
+                                    "qproperty-alignment:AlignCenter;}")
+
+        self.tab = mainTab(parent=self)
+        # self.layout = QVBoxLayout(self)
+        # self.layout.addWidget(header)
+        # self.layout.addWidget(header2)
+        # self.setLayout(self.layout)
+
+        # self.layout.setStretch(0, 3)
+        # self.layout.setStretch(1, 8)
+
+        header.setGeometry(0, 0, 1080, 150)
+        self.tab.setGeometry(0, 205, 1080, 600)
+
     def mousePressEvent(self, event):
         if event.button()==Qt.LeftButton:
             self.m_drag=True
@@ -479,10 +542,11 @@ class ApplicationWindow(QWidget):
         num = int(dura/self.split) + 1
         start = self.start_time
         self.result = resultTable(self)
+        self.result.setGeometry(400, 650, 500, 150)
         # for i in range(0, num):
         #     ffmpeg_extract_subclip(self.VIDEO, start, start+self.split, targetname="Process/split" + str(i) + ".mp4")
         #     start = start + self.split
-        self.layout.addWidget(self.result, 4, 2)
+        
 
     def exportCSV(self):
         with open('test.csv', 'w') as stream:
